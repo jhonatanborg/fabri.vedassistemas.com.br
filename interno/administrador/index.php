@@ -140,7 +140,7 @@ impressao.data, impressao.id_professor, usuarios.nome as Solicitante, usuarios2.
 left join produtos on (produtos.id=impressao.id_produto)
 left join usuarios on (impressao.id_professor = usuarios.id)
 left join usuarios usuarios2 on (impressao.status = usuarios2.id)
-WHERE NOT impressao.status=5 AND NOT impressao.status=8 AND impressao.id_unidade = $VarUnidade";
+WHERE impressao.status = '0' AND impressao.id_unidade = $VarUnidade";
     $resultado_impres = mysqli_query($conn, $result_impres);
     ?>
 
