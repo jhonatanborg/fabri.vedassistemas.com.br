@@ -287,7 +287,7 @@ var app = new Vue({
                 })
                 .then(response => response.json())
                 .then(resp => {
-                    //   window.location.reload();
+                    window.location.reload();
                 })
                 .catch(error => {
                     // Tratamento de erro
