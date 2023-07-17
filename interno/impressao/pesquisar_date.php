@@ -24,16 +24,21 @@ $VarNivel = $_SESSION['s_nivel'];
 
 
 
-$mes = $_POST['mes'];
 
-$ano = $_POST['ano'];
+
+$data = $_POST['data'];
+$ano = substr($data, 0, 4);
+$mes = substr($data, 5, 2);
+
 
 $unidade = $_POST['unidade'];
 
 $user = $_POST['usuario'];
 
+$status = $_POST['status'];
 
-$month = $_POST['mes']; {
+
+$month = $mes; {
     switch ($month) {
         case "1":
             $month = "JANEIRO";
@@ -82,14 +87,22 @@ if ($user !== "all") {
   $usuarioCondition = "";
 }
 
+if ($status !== "all") {
+  $statusCondition = "AND impressao.status = '$status'";
+} else {
+  $statusCondition = "";
+}
+
 // Verificar se a variável $unidade é diferente de "all"
 if ($unidade !== "all") {
-  $unidadeCondition = "AND impressao.unidade = '$unidade'";
+  $unidadeCondition = "AND impressao.id_unidade = '$unidade'";
 } else {
   $unidadeCondition = "";
 }
+
+
 $result_impres = "SELECT
-  impressao.unidade,
+  impressao.id_unidade,
   SUM(impressao.quantidade) AS totquantidade,
   produtos.valor_unidade AS valortotal,
   SUM(impressao.quantidade * produtos.valor_unidade) AS valortotal,
@@ -99,55 +112,20 @@ $result_impres = "SELECT
   produtos.codigo,
   impressao.id_professor,
   usuarios.nome AS nome_professor,
-  CASE impressao.unidade
-    WHEN 1 THEN 'CUVG'
-    WHEN 2 THEN 'FAACC'
-    WHEN 3 THEN 'FAAZ'
-    WHEN 4 THEN 'FACC'
-    WHEN 5 THEN 'FAEN'
-    WHEN 6 THEN 'FAET'
-    WHEN 7 THEN 'FAGEO'
-    WHEN 8 THEN 'FANUT'
-    WHEN 9 THEN 'FAVET'
-    WHEN 10 THEN 'FD'
-    WHEN 11 THEN 'FE'
-    WHEN 12 THEN 'FEF'
-    WHEN 13 THEN 'FENF'
-    WHEN 14 THEN 'FM'
-    WHEN 15 THEN 'IB'
-    WHEN 16 THEN 'IC'
-    WHEN 17 THEN 'ICET'
-    WHEN 18 THEN 'ICHS'
-    WHEN 19 THEN 'IE'
-    WHEN 20 THEN 'IGHD'
-    WHEN 21 THEN 'IL'
-    WHEN 22 THEN 'ISC'
-    WHEN 23 THEN 'PRAE'
-    WHEN 24 THEN 'PROADI'
-    WHEN 25 THEN 'PROCEV'
-    WHEN 26 THEN 'PROEG'
-    WHEN 27 THEN 'PROPG'
-    WHEN 28 THEN 'PROPLAN'
-    WHEN 29 THEN 'PROPEQ'
-    WHEN 30 THEN 'Reitoria'
-    WHEN 31 THEN 'SECRI'
-    WHEN 32 THEN 'SECOM'
-    WHEN 33 THEN 'SETEC'
-    WHEN 34 THEN 'SGP'
-    WHEN 35 THEN 'STI'
-    WHEN 36 THEN 'ViceReitoria'
-  END AS unidade
+  unidades.name as unidade_nome
 FROM impressao
 JOIN produtos ON impressao.id_produto = produtos.id
 JOIN usuarios ON impressao.id_professor = usuarios.id
-WHERE impressao.status = 4
-  AND EXTRACT(MONTH FROM impressao.data) = '$mes'
+JOIN unidades ON usuarios.unidade = unidades.id
+WHERE  EXTRACT(MONTH FROM impressao.data) = '$mes'
   AND EXTRACT(YEAR FROM impressao.data) = '$ano'
   $unidadeCondition
   $usuarioCondition
-GROUP BY impressao.unidade, impressao.id_produto, produtos.descricao_prod, produtos.valor_unidade, produtos.codigo, impressao.id_professor, usuarios.nome
-ORDER BY impressao.unidade LIMIT 0,100
+  $statusCondition
+GROUP BY impressao.id_unidade, impressao.id_produto, produtos.descricao_prod, produtos.valor_unidade, produtos.codigo, impressao.id_professor, usuarios.nome
+ORDER BY impressao.id_unidade LIMIT 0,100
 ";
+
 $resultado_impres = mysqli_query($conn, $result_impres);
 $total = 0;
 
@@ -331,7 +309,7 @@ $total = 0;
                 <tr style="font-size: 12px">
 
 
-                    <td><?php echo $rows_impres['unidade']; ?></td>
+                    <td><?php echo $rows_impres['unidade_nome']; ?></td>
                     <td><?php echo $rows_impres['nome_professor']; ?></td>
 
                     <td><?php echo $rows_impres['codigo']; ?></td>

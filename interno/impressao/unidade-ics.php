@@ -39,530 +39,533 @@ $VarNivel = $_SESSION['s_nivel'];
 
 <head>
 
-	<meta charset="utf-8">
+    <meta charset="utf-8">
 
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Coordenador</title>
+    <title>Coordenador</title>
 
 
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 
-	<style type="text/css">
+    <style type="text/css">
+    .col-sm-6 {
 
+        width: 100%;
 
+    }
 
-	.col-sm-6 {
+    body {
 
-		width: 100%;
+        color: #566787;
 
-	}
+        background: #f5f5f5;
 
-	body {
+        font-family: 'Varela Round', sans-serif;
 
-		color: #566787;
+        font-size: 13px;
 
-		background: #f5f5f5;
+    }
 
-		font-family: 'Varela Round', sans-serif;
+    .table-wrapper {
 
-		font-size: 13px;
+        background: #fff;
 
-	}
+        padding: 20px 25px;
 
-	.table-wrapper {
+        margin: 30px 0;
 
-		background: #fff;
+        border-radius: 3px;
 
-		padding: 20px 25px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 
-		margin: 30px 0;
+    }
 
-		border-radius: 3px;
+    .table-title {
 
-		box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        padding-bottom: 15px;
 
-	}
+        background: #09a567;
 
-	.table-title {        
+        color: #fff;
 
-		padding-bottom: 15px;
+        padding: 16px 30px;
 
-		background: #09a567;
+        margin: -20px -25px 10px;
 
-		color: #fff;
+        border-radius: 3px 3px 0 0;
 
-		padding: 16px 30px;
+    }
 
-		margin: -20px -25px 10px;
+    .table-title h2 {
 
-		border-radius: 3px 3px 0 0;
+        margin: 5px 0 0;
 
-	}
+        font-size: 24px;
 
-	.table-title h2 {
+    }
 
-		margin: 5px 0 0;
+    .table-title .btn-group {
 
-		font-size: 24px;
+        float: right;
 
-	}
+    }
 
-	.table-title .btn-group {
+    .table-title .btn {
 
-		float: right;
+        color: #fff;
 
-	}
+        float: right;
 
-	.table-title .btn {
+        font-size: 13px;
 
-		color: #fff;
+        border: none;
 
-		float: right;
+        min-width: 50px;
 
-		font-size: 13px;
+        border-radius: 2px;
 
-		border: none;
+        border: none;
 
-		min-width: 50px;
+        outline: none !important;
 
-		border-radius: 2px;
+        margin-left: 10px;
 
-		border: none;
+    }
 
-		outline: none !important;
+    .table-title .btn i {
 
-		margin-left: 10px;
+        float: left;
 
-	}
+        font-size: 21px;
 
-	.table-title .btn i {
+        margin-right: 5px;
 
-		float: left;
+    }
 
-		font-size: 21px;
+    .table-title .btn span {
 
-		margin-right: 5px;
+        float: left;
 
-	}
+        margin-top: 2px;
 
-	.table-title .btn span {
+    }
 
-		float: left;
+    table.table tr th,
+    table.table tr td {
 
-		margin-top: 2px;
+        border-color: #e9e9e9;
 
-	}
+        padding: 12px 15px;
 
-	table.table tr th, table.table tr td {
+        vertical-align: middle;
 
-		border-color: #e9e9e9;
+    }
 
-		padding: 12px 15px;
+    table.table tr th:first-child {
 
-		vertical-align: middle;
+        width: 10px;
 
-	}
+    }
 
-	table.table tr th:first-child {
+    table.table tr th:last-child {
 
-		width: 10px;
+        width: 80px;
 
-	}
+    }
 
-	table.table tr th:last-child {
+    table.table-striped tbody tr:nth-of-type(odd) {
 
-		width: 80px;
+        background-color: #fcfcfc;
 
-	}
+    }
 
-	table.table-striped tbody tr:nth-of-type(odd) {
+    table.table-striped.table-hover tbody tr:hover {
 
-		background-color: #fcfcfc;
+        background: #f5f5f5;
 
-	}
+    }
 
-	table.table-striped.table-hover tbody tr:hover {
+    table.table th i {
 
-		background: #f5f5f5;
+        font-size: 13px;
 
-	}
+        margin: 0 5px;
 
-	table.table th i {
+        cursor: pointer;
 
-		font-size: 13px;
+    }
 
-		margin: 0 5px;
+    table.table td:last-child i {
 
-		cursor: pointer;
+        opacity: 0.9;
 
-	} 
+        font-size: 22px;
 
-	table.table td:last-child i {
+        margin: 0 5px;
 
-		opacity: 0.9;
+    }
 
-		font-size: 22px;
+    table.table td a {
 
-		margin: 0 5px;
+        font-weight: bold;
 
-	}
+        color: #566787;
 
-	table.table td a {
+        display: inline-block;
 
-		font-weight: bold;
+        text-decoration: none;
 
-		color: #566787;
+        outline: none !important;
 
-		display: inline-block;
+    }
 
-		text-decoration: none;
+    table.table td a:hover {
 
-		outline: none !important;
+        color: #2196F3;
 
-	}
+    }
 
-	table.table td a:hover {
+    table.table td a.edit {
 
-		color: #2196F3;
+        color: #FFC107;
 
-	}
+    }
 
-	table.table td a.edit {
+    table.table td a.delete {
 
-		color: #FFC107;
+        color: #F44336;
 
-	}
+    }
 
-	table.table td a.delete {
+    table.table td i {
 
-		color: #F44336;
+        font-size: 19px;
 
-	}
+    }
 
-	table.table td i {
+    table.table .avatar {
 
-		font-size: 19px;
+        border-radius: 50%;
 
-	}
+        vertical-align: middle;
 
-	table.table .avatar {
+        margin-right: 10px;
 
-		border-radius: 50%;
+    }
 
-		vertical-align: middle;
 
-		margin-right: 10px;
 
-	}
+    .hint-text {
 
+        float: left;
 
+        margin-top: 10px;
 
-	.hint-text {
+        font-size: 13px;
 
-		float: left;
+    }
 
-		margin-top: 10px;
 
-		font-size: 13px;
 
-	}    
 
 
+    /* Modal styles */
 
+    .modal .modal-dialog {
 
+        max-width: 400px;
 
-	/* Modal styles */
+    }
 
-	.modal .modal-dialog {
+    .modal .modal-header,
+    .modal .modal-body,
+    .modal .modal-footer {
 
-		max-width: 400px;
+        padding: 20px 30px;
 
-	}
+    }
 
-	.modal .modal-header, .modal .modal-body, .modal .modal-footer {
+    .modal .modal-content {
 
-		padding: 20px 30px;
+        border-radius: 3px;
 
-	}
+    }
 
-	.modal .modal-content {
+    .modal .modal-footer {
 
-		border-radius: 3px;
+        background: #ecf0f1;
 
-	}
+        border-radius: 0 0 3px 3px;
 
-	.modal .modal-footer {
+    }
 
-		background: #ecf0f1;
+    .modal .modal-title {
 
-		border-radius: 0 0 3px 3px;
+        display: inline-block;
 
-	}
+    }
 
-	.modal .modal-title {
+    .modal .form-control {
 
-		display: inline-block;
+        border-radius: 2px;
 
-	}
+        box-shadow: none;
 
-	.modal .form-control {
+        border-color: #dddddd;
 
-		border-radius: 2px;
+    }
 
-		box-shadow: none;
+    .modal textarea.form-control {
 
-		border-color: #dddddd;
+        resize: vertical;
 
-	}
+    }
 
-	.modal textarea.form-control {
+    .modal .btn {
 
-		resize: vertical;
+        border-radius: 2px;
 
-	}
+        min-width: 100px;
 
-	.modal .btn {
+    }
 
-		border-radius: 2px;
+    .modal form label {
 
-		min-width: 100px;
+        font-weight: normal;
 
-	} 
-
-	.modal form label {
-
-		font-weight: normal;
-
-	} 
-
-</style>
+    }
+    </style>
 
 </head>
 
 <body>
 
-	<!-- Static navbar -->
+    <!-- Static navbar -->
 
-	<nav class="navbar navbar-default">
+    <nav class="navbar navbar-default">
 
-		<div class="container-fluid">
+        <div class="container-fluid">
 
-			<div class="navbar-header">
+            <div class="navbar-header">
 
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
 
-					<span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">Toggle navigation</span>
 
-					<span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
 
-					<span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
 
-					<span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
 
-				</button>
+                </button>
 
-				<a class="navbar-brand" href="#">Fabri Gráfica Digital</a>
+                <a class="navbar-brand" href="#">Fabri Gráfica Digital</a>
 
-			</div>
+            </div>
 
-			<div id="navbar" class="navbar-collapse collapse">
+            <div id="navbar" class="navbar-collapse collapse">
 
-				<ul class="nav navbar-nav">
+                <ul class="nav navbar-nav">
 
-					<li><a href="inicio.php">PRODUTOS</a></li>
+                    <li><a href="inicio.php">PRODUTOS</a></li>
 
-					<li  class="active"><a href="solicitados.php">SOLICITADOS</a></li>
+                    <li class="active"><a href="solicitados.php">SOLICITADOS</a></li>
 
-					<li><a href="usuarios.php">USUÁRIOS</a></li>
+                    <li><a href="usuarios.php">USUÁRIOS</a></li>
 
-					<li><a href="pesquisa.php">RELÁTORIOS</a></li>
+                    <li><a href="pesquisa.php">RELÁTORIOS</a></li>
 
 
 
-				</ul>
+                </ul>
 
-				<ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right">
 
 
 
 
 
-					<li><a href="#"><?php echo "$VarNome"; ?></a></li>
+                    <li><a href="#"><?php echo "$VarNome"; ?></a></li>
 
-					<li><a href="../administrador/logout.php">SAIR</a></li>
+                    <li><a href="../administrador/logout.php">SAIR</a></li>
 
-				</ul>
+                </ul>
 
-			</div><!--/.nav-collapse -->
+            </div>
+            <!--/.nav-collapse -->
 
-		</div><!--/.container-fluid -->
+        </div>
+        <!--/.container-fluid -->
 
-	</nav>
+    </nav>
 
-	<div class="table-wrapper">
+    <div class="table-wrapper">
 
-		<div class="table-title">
+        <div class="table-title">
 
-			<div class="row">
+            <div class="row">
 
-				<div class="col-sm-6">
+                <div class="col-sm-6">
 
-					<h2>Serviços Concluidos</b></h2>
+                    <h2>Serviços Concluidos</b></h2>
 
-				</div>
+                </div>
 
-				<div class="col-sm-6">
+                <div class="col-sm-6">
 
-					<div class="row ">
+                    <div class="row ">
 
 
 
 
 
-						<div class="rounded-btn">
+                        <div class="rounded-btn">
 
-							<a href="relatorio.php"><button class="btn btn-lg btn-success" target="_blank" ><i class="material-icons">&#xE147;</i>Extrair Relatório</button></a>
+                            <a href="relatorio.php"><button class="btn btn-lg btn-success" target="_blank"><i
+                                        class="material-icons">&#xE147;</i>Extrair Relatório</button></a>
 
 
-							<a href="#"><button class="btn btn-lg btn-success">CUVG</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FAACC</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FAAZ</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FACC</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FAEN</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FAET</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FAGEO</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FANUT</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FAVET</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FD</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FE</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FEF</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FENF</button></a>
-<a href="#"><button class="btn btn-lg btn-success">FM</button></a>
-<a href="#"><button class="btn btn-lg btn-success">IB</button></a>
-<a href="#"><button class="btn btn-lg btn-success">IC</button></a>
-<a href="#"><button class="btn btn-lg btn-success">ICET</button></a>
-<a href="#"><button class="btn btn-lg btn-success">ICHS</button></a>
-<a href="#"><button class="btn btn-lg btn-success">IE</button></a>
-<a href="#"><button class="btn btn-lg btn-success">IGHD</button></a>
-<a href="#"><button class="btn btn-lg btn-success">IL</button></a>
-<a href="#"><button class="btn btn-lg btn-success">ISC</button></a>
-<a href="#"><button class="btn btn-lg btn-success">PRAE</button></a>
-<a href="#"><button class="btn btn-lg btn-success">PROADI</button></a>
-<a href="#"><button class="btn btn-lg btn-success">PROCEV</button></a>
-<a href="#"><button class="btn btn-lg btn-success">PROEG</button></a>
-<a href="#"><button class="btn btn-lg btn-success">PROPG</button></a>
-<a href="#"><button class="btn btn-lg btn-success">PROPLAN</button></a>
-<a href="#"><button class="btn btn-lg btn-success">PROPEQ</button></a>
-<a href="#"><button class="btn btn-lg btn-success">Reitoria</button></a>
-<a href="#"><button class="btn btn-lg btn-success">SECRI</button></a>
-<a href="#"><button class="btn btn-lg btn-success">SECOM</button></a>
-<a href="#"><button class="btn btn-lg btn-success">SETEC</button></a>
-<a href="#"><button class="btn btn-lg btn-success">SGP</button></a>
-<a href="#"><button class="btn btn-lg btn-success">STI</button></a>
-<a href="#"><button class="btn btn-lg btn-success">ViceReitoria</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">CUVG</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FAACC</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FAAZ</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FACC</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FAEN</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FAET</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FAGEO</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FANUT</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FAVET</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FD</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FE</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FEF</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FENF</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">FM</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">IB</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">IC</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">ICET</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">ICHS</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">IE</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">IGHD</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">IL</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">ISC</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">PRAE</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">PROADI</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">PROCEV</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">PROEG</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">PROPG</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">PROPLAN</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">PROPEQ</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">Reitoria</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">SECRI</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">SECOM</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">SETEC</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">SGP</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">STI</button></a>
+                            <a href="#"><button class="btn btn-lg btn-success">ViceReitoria</button></a>
 
 
 
 
 
-						</div>
+                        </div>
 
-					</div>              
+                    </div>
 
-				</div>
+                </div>
 
 
 
-			</div>
+            </div>
 
-		</div>
+        </div>
 
-		<table class="table table-striped table-hover" id="product_data">
+        <table class="table table-striped table-hover" id="product_data">
 
-			<thead>
+            <thead>
 
-				<tr>
+                <tr>
 
 
-					<th>Unidade</th>
+                    <th>Unidade</th>
 
 
-					<th>Código</th>
+                    <th>Código</th>
 
-					<th>Serviço</th> 
+                    <th>Serviço</th>
 
-					<th>Quantidade total</th>  
+                    <th>Quantidade total</th>
 
-					<th>Valor Unitário</th>
+                    <th>Valor Unitário</th>
 
-					<th>Total</th>
-				</tr>
+                    <th>Total</th>
+                </tr>
 
-			</thead>
+            </thead>
 
-			<tbody>
+            <tbody>
 
-				<?php
+                <?php
 
 $result_impres = "SELECT
-impressao.unidade,
+impressao.id_unidade,
 sum(impressao.quantidade) as totquantidade,
 produtos.valor_unidade as valortotal,
 sum(impressao.quantidade*produtos.valor_unidade) as valortotal,
 impressao.id_produto,produtos.descricao_prod, produtos.valor_unidade, produtos.codigo,
 
-case When impressao.unidade = 1 then 'CUVG'
-When impressao.unidade = 2 then 'FAACC'
-When impressao.unidade = 3 then 'FAAZ'
-When impressao.unidade = 4 then 'FACC'
-When impressao.unidade = 5 then 'FAEN'
-When impressao.unidade = 6 then 'FAET'
-When impressao.unidade = 7 then 'FAGEO'
-When impressao.unidade = 8 then 'FANUT'
-When impressao.unidade = 9 then 'FAVET'
-When impressao.unidade = 10 then 'FD'
-When impressao.unidade = 11 then 'FE'
-When impressao.unidade = 12 then 'FEF'
-When impressao.unidade = 13 then 'FENF'
-When impressao.unidade = 14 then 'FM'
-When impressao.unidade = 15 then 'IB'
-When impressao.unidade = 16 then 'IC'
-When impressao.unidade = 17 then 'ICET'
-When impressao.unidade = 18 then 'ICHS'
-When impressao.unidade = 19 then 'IE'
-When impressao.unidade = 20 then 'IGHD'
-When impressao.unidade = 21 then 'IL'
-When impressao.unidade = 22 then 'ISC'
-When impressao.unidade = 23 then 'PRAE'
-When impressao.unidade = 24 then 'PROADI'
-When impressao.unidade = 25 then 'PROCEV'
-When impressao.unidade = 26 then 'PROEG'
-When impressao.unidade = 27 then 'PROPG'
-When impressao.unidade = 28 then 'PROPLAN'
-When impressao.unidade = 29 then 'PROPEQ'
-When impressao.unidade = 30 then 'Reitoria'
-When impressao.unidade = 31 then 'SECRI'
-When impressao.unidade = 32 then 'SECOM'
-When impressao.unidade = 33 then 'SETEC'
-When impressao.unidade = 34 then 'SGP'
-When impressao.unidade = 35 then 'STI'
-When impressao.unidade = 36 then 'ViceReitoria'
+case When impressao.id_unidade = 1 then 'CUVG'
+When impressao.id_unidade = 2 then 'FAACC'
+When impressao.id_unidade = 3 then 'FAAZ'
+When impressao.id_unidade = 4 then 'FACC'
+When impressao.id_unidade = 5 then 'FAEN'
+When impressao.id_unidade = 6 then 'FAET'
+When impressao.id_unidade = 7 then 'FAGEO'
+When impressao.id_unidade = 8 then 'FANUT'
+When impressao.id_unidade = 9 then 'FAVET'
+When impressao.id_unidade = 10 then 'FD'
+When impressao.id_unidade = 11 then 'FE'
+When impressao.id_unidade = 12 then 'FEF'
+When impressao.id_unidade = 13 then 'FENF'
+When impressao.id_unidade = 14 then 'FM'
+When impressao.id_unidade = 15 then 'IB'
+When impressao.id_unidade = 16 then 'IC'
+When impressao.id_unidade = 17 then 'ICET'
+When impressao.id_unidade = 18 then 'ICHS'
+When impressao.id_unidade = 19 then 'IE'
+When impressao.id_unidade = 20 then 'IGHD'
+When impressao.id_unidade = 21 then 'IL'
+When impressao.id_unidade = 22 then 'ISC'
+When impressao.id_unidade = 23 then 'PRAE'
+When impressao.id_unidade = 24 then 'PROADI'
+When impressao.id_unidade = 25 then 'PROCEV'
+When impressao.id_unidade = 26 then 'PROEG'
+When impressao.id_unidade = 27 then 'PROPG'
+When impressao.id_unidade = 28 then 'PROPLAN'
+When impressao.id_unidade = 29 then 'PROPEQ'
+When impressao.id_unidade = 30 then 'Reitoria'
+When impressao.id_unidade = 31 then 'SECRI'
+When impressao.id_unidade = 32 then 'SECOM'
+When impressao.id_unidade = 33 then 'SETEC'
+When impressao.id_unidade = 34 then 'SGP'
+When impressao.id_unidade = 35 then 'STI'
+When impressao.id_unidade = 36 then 'ViceReitoria'
 end as unidade
 FROM impressao, produtos
 WHERE impressao.status=4
@@ -578,98 +581,97 @@ $resultado_impres = mysqli_query($conn, $result_impres);
 
 
 
-<?php while($rows_impres = mysqli_fetch_assoc($resultado_impres)){ 
+                <?php while($rows_impres = mysqli_fetch_assoc($resultado_impres)){ 
 
 	?>
 
-	<tr style="font-size: 12px">
+                <tr style="font-size: 12px">
 
 
-		<td><?php echo $rows_impres['unidade']; ?></td>
+                    <td><?php echo $rows_impres['unidade']; ?></td>
 
-		<td><?php echo $rows_impres['codigo']; ?></td>  
+                    <td><?php echo $rows_impres['codigo']; ?></td>
 
-		<td><?php echo $rows_impres['descricao_prod']; ?></td>
+                    <td><?php echo $rows_impres['descricao_prod']; ?></td>
 
-		<td><?php echo $rows_impres['totquantidade']; ?></td>
+                    <td><?php echo $rows_impres['totquantidade']; ?></td>
 
-		<td> R$<?php echo $rows_impres['valor_unidade']; ?></td>
+                    <td> R$<?php echo $rows_impres['valor_unidade']; ?></td>
 
-		<td> R$<?php echo $rows_impres['valortotal']; ?></td>
-
-
-
-	</tr>
-
-<?php }?>
+                    <td> R$<?php echo $rows_impres['valortotal']; ?></td>
 
 
 
-</tbody>
+                </tr>
 
-</table>
-
-
-
-</div>
-
-</div>
-
-<!-- Edit Modal HTML -->
-
-<div id="exampleModal" class="modal fade">
-
-	<div class="modal-dialog">
-
-		<div class="modal-content">
-
-			<div class="modal-header">            
-
-				<h4 class="modal-title"></h4>
-
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-			</div>
-
-			<div class="modal-body">
+                <?php }?>
 
 
 
-				<form method="POST" action="update_envio.php" enctype="multipart/form-data"> 
+            </tbody>
+
+        </table>
 
 
 
-					<div class="form-group">
+    </div>
 
-						<label>QUANTIDADE</label>
+    </div>
 
-						<input type="text" class="form-control" required name="quantidade" id="quantidade"
+    <!-- Edit Modal HTML -->
 
-						onkeyup="somenteNumeros(this);">
+    <div id="exampleModal" class="modal fade">
 
-					</div>
+        <div class="modal-dialog">
 
-					<div class="form-group">
+            <div class="modal-content">
 
-						<label>DESCRIÇÃO</label>
+                <div class="modal-header">
 
-						<input type="text" class="form-control" required  name="descricao" id="descricao">
+                    <h4 class="modal-title"></h4>
 
-					</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
+                </div>
 
-
-
-
-					<input name="id" type="hidden" class="form-control" id="id" value="">
-
-					<select name="descricao_prod" class="browser-default custom-select my-3" id="">
-
-						<option selected>Tipo de impressão</option>
+                <div class="modal-body">
 
 
 
-						<?php
+                    <form method="POST" action="update_envio.php" enctype="multipart/form-data">
+
+
+
+                        <div class="form-group">
+
+                            <label>QUANTIDADE</label>
+
+                            <input type="text" class="form-control" required name="quantidade" id="quantidade"
+                                onkeyup="somenteNumeros(this);">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>DESCRIÇÃO</label>
+
+                            <input type="text" class="form-control" required name="descricao" id="descricao">
+
+                        </div>
+
+
+
+
+
+                        <input name="id" type="hidden" class="form-control" id="id" value="">
+
+                        <select name="descricao_prod" class="browser-default custom-select my-3" id="">
+
+                            <option selected>Tipo de impressão</option>
+
+
+
+                            <?php
 
 						$result_produtos = "SELECT * FROM produtos WHERE status = '0'";
 
@@ -677,39 +679,39 @@ $resultado_impres = mysqli_query($conn, $result_impres);
 
 						while($row_produtos = mysqli_fetch_assoc($resultado_produtos)){ ?>
 
-							<option  value="<?php echo $row_produtos['descricao_prod']; ?>">
+                            <option value="<?php echo $row_produtos['descricao_prod']; ?>">
 
-								<?php echo $row_produtos['descricao_prod'];?></option> <?php
+                                <?php echo $row_produtos['descricao_prod'];?></option> <?php
 
 							}
 
 							?>
 
-						</select>
+                        </select>
 
-						<div class="modal-footer">
+                        <div class="modal-footer">
 
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 
-							<input type="submit" class="btn btn-info" value="Salvar">
+                            <input type="submit" class="btn btn-info" value="Salvar">
 
-						</form>
+                    </form>
 
-					</div>
+                </div>
 
 
 
-				</div>
+            </div>
 
 
 
-			</div>
+        </div>
 
-		</div>
+    </div>
 
-	</div>
+    </div>
 
-</div>
+    </div>
 
 
 
@@ -717,273 +719,274 @@ $resultado_impres = mysqli_query($conn, $result_impres);
 
 
 
-<div id="deleteEmployeeModal" class="modal fade">
+    <div id="deleteEmployeeModal" class="modal fade">
 
-	<div class="modal-dialog">
+        <div class="modal-dialog">
 
-		<div class="modal-content">
+            <div class="modal-content">
 
-			<form method="POST" action="recusar.php">
+                <form method="POST" action="recusar.php">
 
-				<div class="modal-header">            
+                    <div class="modal-header">
 
-					<h4 class="modal-title"></h4>
+                        <h4 class="modal-title"></h4>
 
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-				</div>
+                    </div>
 
-				<div class="modal-body">          
+                    <div class="modal-body">
 
-					<p>Tem certeza que deseja deletar o solicitação selecionada?</p>
+                        <p>Tem certeza que deseja deletar o solicitação selecionada?</p>
 
-					<input type="hidden" class="form-control" id="id" name="id">
+                        <input type="hidden" class="form-control" id="id" name="id">
 
-					<input name="descricao_prod" type="hidden" class="form-control" id="descricao_prod">
+                        <input name="descricao_prod" type="hidden" class="form-control" id="descricao_prod">
 
-					<input name="Solicitante" type="hidden" class="form-control" id="Solicitante">
+                        <input name="Solicitante" type="hidden" class="form-control" id="Solicitante">
 
-					<input name="codigo" type="hidden" class="form-control" id="codigo">
+                        <input name="codigo" type="hidden" class="form-control" id="codigo">
 
 
 
-					<p class="text-warning">
+                        <p class="text-warning">
 
-						<small>Fazendo isso você recusará a solicitação permanentemente</small></p>
+                            <small>Fazendo isso você recusará a solicitação permanentemente</small>
+                        </p>
 
-					</div>
+                    </div>
 
-					<div class="modal-footer">
+                    <div class="modal-footer">
 
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 
-						<input type="submit" class="btn btn-danger" value="Recusar">
+                        <input type="submit" class="btn btn-danger" value="Recusar">
 
-					</div>
+                    </div>
 
-				</form>
+                </form>
 
-			</div>
+            </div>
 
-		</div>
+        </div>
 
-	</div> 
+    </div>
 
 
 
-	<div id="confirmar" class="modal fade">
+    <div id="confirmar" class="modal fade">
 
-		<div class="modal-dialog">
+        <div class="modal-dialog">
 
-			<div class="modal-content">
+            <div class="modal-content">
 
-				<form method="POST" action="confirmar.php">
+                <form method="POST" action="confirmar.php">
 
-					<div class="modal-header">            
+                    <div class="modal-header">
 
-						<h4 class="modal-title"></h4>
+                        <h4 class="modal-title"></h4>
 
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-					</div>
+                    </div>
 
-					<div class="modal-body">          
+                    <div class="modal-body">
 
-						<p>Confirmar solicitação?</p>
+                        <p>Confirmar solicitação?</p>
 
-						<input type="hidden" class="form-control" id="id" name="id">
+                        <input type="hidden" class="form-control" id="id" name="id">
 
-						<input name="descricao_prod" type="hidden" class="form-control" id="descricao_prod">
+                        <input name="descricao_prod" type="hidden" class="form-control" id="descricao_prod">
 
-						<input name="Solicitante" type="hidden" class="form-control" id="Solicitante">
+                        <input name="Solicitante" type="hidden" class="form-control" id="Solicitante">
 
-						<input name="codigo" type="hidden" class="form-control" id="codigo">
+                        <input name="codigo" type="hidden" class="form-control" id="codigo">
 
 
 
 
 
-						<p class="text-warning">
+                        <p class="text-warning">
 
-							<small>Ao confirmar essa solitação, o serviço será encaminhado direto para a Fabri Gráfica Digital</small></p>
+                            <small>Ao confirmar essa solitação, o serviço será encaminhado direto para a Fabri Gráfica
+                                Digital</small>
+                        </p>
 
-						</div>
+                    </div>
 
-						<div class="modal-footer">
+                    <div class="modal-footer">
 
-							<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 
-							<input type="submit" class="btn btn-success" value="Confirmar">
+                        <input type="submit" class="btn btn-success" value="Confirmar">
 
-						</div>
+                    </div>
 
-					</form>
+                </form>
 
-				</div>
+            </div>
 
-			</div>
+        </div>
 
-		</div>
+    </div>
 
-		<footer>
+    <footer>
 
-			<div class="footer" id="footer">
+        <div class="footer" id="footer">
 
-				<div class="container">
+            <div class="container">
 
-					<p class="pull-left"> Copyright © Vedas Sistemas 2019. Todos os direitos reservados. </p>
+                <p class="pull-left"> Copyright © Vedas Sistemas 2019. Todos os direitos reservados. </p>
 
 
 
-				</div>
+            </div>
 
-			</div>
+        </div>
 
-		</div>
+        </div>
 
-	</footer> 
+    </footer>
 
-	<script type="text/javascript">
+    <script type="text/javascript">
+    $('#exampleModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
 
-		$('#exampleModal').on('show.bs.modal', function (event) {var button = $(event.relatedTarget) 
+        var recipient = button.data('whatever') // Extract 
 
-  var recipient = button.data('whatever') // Extract 
+        var recipientnome = button.data('whatevernome')
 
-  var recipientnome = button.data('whatevernome')
+        var recipientcodigo = button.data('whatevercodigo')
 
-  var recipientcodigo = button.data('whatevercodigo')
+        var recipientquantidade = button.data('whateverquantidade')
 
-  var recipientquantidade = button.data('whateverquantidade')
+        var recipientdescricao = button.data('whateverdescricao')
 
-  var recipientdescricao = button.data('whateverdescricao')
+        var recipientdescricao_prod = button.data('whateverdescricao_prod')
 
-  var recipientdescricao_prod = button.data('whateverdescricao_prod')
 
 
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
 
-      var modal = $(this)
+        modal.find('.modal-title').text('Solicitação de:' + recipientnome)
 
-      modal.find('.modal-title').text('Solicitação de:' + recipientnome)
+        modal.find('#id').val(recipient)
 
-      modal.find('#id').val(recipient)
+        modal.find('#recipient-codigo').val(recipientcodigo)
 
-      modal.find('#recipient-codigo').val(recipientcodigo)
+        modal.find('#quantidade').val(recipientquantidade)
 
-      modal.find('#quantidade').val(recipientquantidade)
+        modal.find('#descricao').val(recipientdescricao)
 
-      modal.find('#descricao').val(recipientdescricao)
+        modal.find('#descricao_prod').val(recipientdescricao_prod)
 
-      modal.find('#descricao_prod').val(recipientdescricao_prod)
 
 
+    })
+    </script>
 
-  })
+    <script type="text/javascript">
+    $('#deleteEmployeeModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
 
-</script>
+        var recipient = button.data('whatever') // Extract 
 
-<script type="text/javascript">
+        var recipientnome = button.data('whatevernome')
 
-	$('#deleteEmployeeModal').on('show.bs.modal', function (event) {var button = $(event.relatedTarget) 
+        var recipientquantidade = button.data('whateverquantidade')
 
-  var recipient = button.data('whatever') // Extract 
+        var recipientdescricao = button.data('whateverdescricao')
 
-  var recipientnome = button.data('whatevernome')
+        var recipientdescricao_prod = button.data('whateverdescricao_prod')
 
-  var recipientquantidade = button.data('whateverquantidade')
 
-  var recipientdescricao = button.data('whateverdescricao')
 
-  var recipientdescricao_prod = button.data('whateverdescricao_prod')
 
 
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 
+        var modal = $(this)
 
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        modal.find('.modal-title').text('Solicitação de:' + recipientnome)
 
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        modal.find('#id').val(recipient)
 
-      var modal = $(this)
+        modal.find('#recipient-codigo').val(recipientcodigo)
 
-      modal.find('.modal-title').text('Solicitação de:' + recipientnome)
+        modal.find('#quantidade').val(recipientquantidade)
 
-      modal.find('#id').val(recipient)
+        modal.find('#descricao').val(recipientdescricao)
 
-      modal.find('#recipient-codigo').val(recipientcodigo)
+        modal.find('#descricao_prod').val(recipientdescricao)
 
-      modal.find('#quantidade').val(recipientquantidade)
 
-      modal.find('#descricao').val(recipientdescricao)
 
-      modal.find('#descricao_prod').val(recipientdescricao)
+    })
+    </script>
 
+    <script type="text/javascript">
+    $('#confirmar').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
 
+        var recipient = button.data('whatever') // Extract 
 
-  })
+        var recipientnome = button.data('whatevernome')
 
-</script>
+        var recipientquantidade = button.data('whateverquantidade')
 
-<script type="text/javascript">
+        var recipientdescricao = button.data('whateverdescricao')
 
-	$('#confirmar').on('show.bs.modal', function (event) {var button = $(event.relatedTarget) 
+        var recipientdescricao_prod = button.data('whateverdescricao_prod')
 
-  var recipient = button.data('whatever') // Extract 
+        var recipientdisponivel = button.data('whateverdisponivel')
 
-  var recipientnome = button.data('whatevernome')
 
-  var recipientquantidade = button.data('whateverquantidade')
 
-  var recipientdescricao = button.data('whateverdescricao')
 
-  var recipientdescricao_prod = button.data('whateverdescricao_prod')
 
-  var recipientdisponivel = button.data('whateverdisponivel')
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
 
+        var modal = $(this)
 
+        modal.find('.modal-title').text('Confirmar solicitação de:' + recipientnome)
 
+        modal.find('#id').val(recipient)
 
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        modal.find('#recipient-codigo').val(recipientcodigo)
 
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        modal.find('#quantidade').val(recipientquantidade)
 
-      var modal = $(this)
+        modal.find('#descricao').val(recipientdescricao)
 
-      modal.find('.modal-title').text('Confirmar solicitação de:' + recipientnome)
+        modal.find('#descricao_prod').val(recipientdescricao)
 
-      modal.find('#id').val(recipient)
+        modal.find('#disponivel').val(recipientdisponivel)
 
-      modal.find('#recipient-codigo').val(recipientcodigo)
 
-      modal.find('#quantidade').val(recipientquantidade)
 
-      modal.find('#descricao').val(recipientdescricao)
+    })
+    </script>
 
-      modal.find('#descricao_prod').val(recipientdescricao)
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-      modal.find('#disponivel').val(recipientdisponivel)
 
 
+    <!-- Importando o js do bootstrap -->
 
-  })
-
-</script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-
-
-<!-- Importando o js do bootstrap -->
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
 
 
 
 </body>
 
-</html>                                                               
-
+</html>

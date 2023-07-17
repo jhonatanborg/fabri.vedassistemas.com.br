@@ -28,7 +28,13 @@ if (!isset($_SESSION['s_login'])) {
 
 
 
+$sql_unidades = "SELECT * FROM unidades";
+$result = mysqli_query($conn, $sql_unidades);
 
+$optionsArray = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $optionsArray[] = $row;
+}
 
 
 
@@ -63,394 +69,8 @@ if (!isset($_SESSION['s_login'])) {
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <style type="text/css">
-    body {
+    <link rel="stylesheet" href="./css/style.css">
 
-        color: #566787;
-
-        background: #f5f5f5;
-
-        font-family: 'Varela Round', sans-serif;
-
-        font-size: 13px;
-
-    }
-
-    .table-wrapper {
-
-        background: #fff;
-
-        padding: 20px 25px;
-
-        margin: 30px 0;
-
-        border-radius: 3px;
-
-        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-
-    }
-
-    .table-title {
-
-        padding-bottom: 15px;
-
-        background: #299be4;
-
-        color: #fff;
-
-        padding: 16px 30px;
-
-        margin: -20px -25px 10px;
-
-        border-radius: 3px 3px 0 0;
-
-    }
-
-    .table-title h2 {
-
-        margin: 5px 0 0;
-
-        font-size: 24px;
-
-    }
-
-    .table-title .btn {
-
-        color: #566787;
-
-        float: right;
-
-        font-size: 13px;
-
-        background: #fff;
-
-        border: none;
-
-        min-width: 50px;
-
-        border-radius: 2px;
-
-        border: none;
-
-        outline: none !important;
-
-        margin-left: 10px;
-
-    }
-
-    .table-title .btn:hover,
-    .table-title .btn:focus {
-
-        color: #566787;
-
-        background: #f2f2f2;
-
-    }
-
-    .table-title .btn i {
-
-        float: left;
-
-        font-size: 21px;
-
-        margin-right: 5px;
-
-    }
-
-    .table-title .btn span {
-
-        float: left;
-
-        margin-top: 2px;
-
-    }
-
-    table.table tr th,
-    table.table tr td {
-
-        border-color: #e9e9e9;
-
-        padding: 12px 15px;
-
-        vertical-align: middle;
-
-    }
-
-    table.table tr th:first-child {
-
-        width: 60px;
-
-    }
-
-    table.table tr th:last-child {
-
-        width: 100px;
-
-    }
-
-    table.table-striped tbody tr:nth-of-type(odd) {
-
-        background-color: #fcfcfc;
-
-    }
-
-    table.table-striped.table-hover tbody tr:hover {
-
-        background: #f5f5f5;
-
-    }
-
-    table.table th i {
-
-        font-size: 13px;
-
-        margin: 0 5px;
-
-        cursor: pointer;
-
-    }
-
-    table.table td:last-child i {
-
-        opacity: 0.9;
-
-        font-size: 22px;
-
-        margin: 0 5px;
-
-    }
-
-    table.table td a {
-
-        font-weight: bold;
-
-        color: #566787;
-
-        display: inline-block;
-
-        text-decoration: none;
-
-    }
-
-    table.table td a:hover {
-
-        color: #2196F3;
-
-    }
-
-    table.table td a.settings {
-
-        color: #2196F3;
-
-    }
-
-    table.table td a.delete {
-
-        color: #F44336;
-
-    }
-
-    table.table td i {
-
-        font-size: 19px;
-
-    }
-
-    table.table .avatar {
-
-        border-radius: 50%;
-
-        vertical-align: middle;
-
-        margin-right: 10px;
-
-    }
-
-    .status {
-
-        font-size: 30px;
-
-        margin: 2px 2px 0 0;
-
-        display: inline-block;
-
-        vertical-align: middle;
-
-        line-height: 10px;
-
-    }
-
-    .text-success {
-
-        color: #10c469;
-
-    }
-
-    .text-info {
-
-        color: #62c9e8;
-
-    }
-
-    .text-warning {
-
-        color: #FFC107;
-
-    }
-
-    .text-danger {
-
-        color: #ff5b5b;
-
-    }
-
-    .pagination {
-
-        float: right;
-
-        margin: 0 0 5px;
-
-    }
-
-    .pagination li a {
-
-        border: none;
-
-        font-size: 13px;
-
-        min-width: 30px;
-
-        min-height: 30px;
-
-        color: #999;
-
-        margin: 0 2px;
-
-        line-height: 30px;
-
-        border-radius: 2px !important;
-
-        text-align: center;
-
-        padding: 0 6px;
-
-    }
-
-    .pagination li a:hover {
-
-        color: #666;
-
-    }
-
-    .pagination li.active a,
-    .pagination li.active a.page-link {
-
-        background: #03A9F4;
-
-    }
-
-    .pagination li.active a:hover {
-
-        background: #0397d6;
-
-    }
-
-    .pagination li.disabled i {
-
-        color: #ccc;
-
-    }
-
-    .pagination li i {
-
-        font-size: 16px;
-
-        padding-top: 6px
-    }
-
-    .hint-text {
-
-        float: left;
-
-        margin-top: 10px;
-
-        font-size: 13px;
-
-    }
-
-    /* Modal styles */
-
-    .modal .modal-dialog {
-
-        max-width: 400px;
-
-    }
-
-    .modal .modal-header,
-    .modal .modal-body,
-    .modal .modal-footer {
-
-        padding: 20px 30px;
-
-    }
-
-    .modal .modal-content {
-
-        border-radius: 3px;
-
-    }
-
-    .modal .modal-footer {
-
-        background: #ecf0f1;
-
-        border-radius: 0 0 3px 3px;
-
-    }
-
-    .modal .modal-title {
-
-        display: inline-block;
-
-    }
-
-    .modal .form-control {
-
-        border-radius: 2px;
-
-        box-shadow: none;
-
-        border-color: #dddddd;
-
-    }
-
-    .modal textarea.form-control {
-
-        resize: vertical;
-
-    }
-
-    .modal .btn {
-
-        border-radius: 2px;
-
-        min-width: 100px;
-
-    }
-
-    .modal form label {
-
-        font-weight: normal;
-
-    }
-    </style>
-
-    <script type="text/javascript">
-    $(document).ready(function() {
-
-        $('[data-toggle="tooltip"]').tooltip();
-
-    });
     </script>
 
 </head>
@@ -570,63 +190,17 @@ if (!isset($_SESSION['s_login'])) {
             <tbody>
 
                 <?php
-
                         $result_users = "SELECT usuarios.nome,usuarios.login,usuarios.senha,
-
                         usuarios.nivel,usuarios.id,usuarios.matricula,usuarios.unidade,
-
-                        case when when usuarios.unidade = 1 then 'CUVG'                       
-when usuarios.unidade = 2 then 'FAACC'
-when usuarios.unidade = 3 then 'FAAZ'
-when usuarios.unidade = 4 then 'FACC'
-when usuarios.unidade = 5 then 'FAEN'
-when usuarios.unidade = 6 then 'FAET'
-when usuarios.unidade = 7 then 'FAGEO'
-when usuarios.unidade = 8 then 'FANUT'                       
-when usuarios.unidade = 9 then 'FAVET'
-when usuarios.unidade = 10 then 'FD'
-when usuarios.unidade = 11 then 'FE'
-when usuarios.unidade = 12 then 'FEF'
-when usuarios.unidade = 13 then 'FENF'
-when usuarios.unidade = 14 then 'FM'
-when usuarios.unidade = 15 then 'IB'                       
-when usuarios.unidade = 16 then 'IC'
-when usuarios.unidade = 17 then 'ICET'
-when usuarios.unidade = 18 then 'ICHS'
-when usuarios.unidade = 19 then 'IE'
-when usuarios.unidade = 20 then 'IGHD'
-when usuarios.unidade = 21 then 'IL'
-when usuarios.unidade = 22 then 'ISC'                       
-when usuarios.unidade = 23 then 'PRAE'
-when usuarios.unidade = 24 then 'PROADI'
-when usuarios.unidade = 25 then 'PROCEV'
-when usuarios.unidade = 26 then 'PROEG'
-when usuarios.unidade = 27 then 'PROPG'
-when usuarios.unidade = 28 then 'PROPLAN'
-when usuarios.unidade = 29 then 'PROPEQ'                       
-when usuarios.unidade = 30 then 'Reitoria'
-when usuarios.unidade = 31 then 'SECRI'
-when usuarios.unidade = 32 then 'SECOM'
-when usuarios.unidade = 33 then 'SETEC'
-when usuarios.unidade = 34 then 'SGP'
-when usuarios.unidade = 35 then 'STI'
-when usuarios.unidade = 36 then 'ViceReitoria'
-
-                        end as unidade,
-
-                        case when usuarios.nivel=2 then 'Usuario'
+                        unidades.name as unidade_nome,
+                        case when usuarios.nivel=2 then 'Solicitante'
                         when usuarios.nivel=5 then 'Técnico'
                         when usuarios.nivel=6 then 'Inativo' end as nivel_descricao
-
-                        FROM usuarios WHERE usuarios.unidade= $VarUnidade ORDER BY usuarios.nome";
-
+                        FROM usuarios 
+                        JOIN unidades ON usuarios.unidade = unidades.id
+                        WHERE usuarios.unidade= $VarUnidade AND usuarios.nivel=2 ORDER BY usuarios.nome";
                         $resultado_users = mysqli_query($conn, $result_users);
-
                      ?>
-
-
-
-
 
                 <?php while($rows_users = mysqli_fetch_assoc($resultado_users)){ ?>
 
@@ -641,7 +215,7 @@ when usuarios.unidade = 36 then 'ViceReitoria'
 
                     <td><?php echo $rows_users['nivel_descricao']; ?></td>
 
-                    <td><?php echo $rows_users['unidade']; ?></td>
+                    <td><?php echo $rows_users['unidade_nome']; ?></td>
 
                     <td>
 
@@ -748,8 +322,10 @@ when usuarios.unidade = 36 then 'ViceReitoria'
 
                             <option selected>Selecionar Nivel</option>
 
-                            <option value="2">Usuario</option>
-                            <option value="5">Técnico</option>
+
+
+
+                            <option value="2">Solicitante</option>
 
 
 
@@ -759,43 +335,9 @@ when usuarios.unidade = 36 then 'ViceReitoria'
                         <select class="browser-default custom-select" name="unidade" id="unidade">
 
                             <option selected>Selecionar UNIDADE</option>
-
-                            <option value="1">CUVG</option>
-                            <option value="2">FAACC</option>
-                            <option value="3">FAAZ</option>
-                            <option value="4">FACC</option>
-                            <option value="5">FAEN</option>
-                            <option value="6">FAET</option>
-                            <option value="7">FAGEO</option>
-                            <option value="8">FANUT</option>
-                            <option value="9">FAVET</option>
-                            <option value="10">FD</option>
-                            <option value="11">FE</option>
-                            <option value="12">FEF</option>
-                            <option value="13">FENF</option>
-                            <option value="14">FM</option>
-                            <option value="15">IB</option>
-                            <option value="16">IC</option>
-                            <option value="17">ICET</option>
-                            <option value="18">ICHS</option>
-                            <option value="19">IE</option>
-                            <option value="20">IGHD</option>
-                            <option value="21">IL</option>
-                            <option value="22">ISC</option>
-                            <option value="23">PRAE</option>
-                            <option value="24">PROADI</option>
-                            <option value="25">PROCEV</option>
-                            <option value="26">PROEG</option>
-                            <option value="27">PROPG</option>
-                            <option value="28">PROPLAN</option>
-                            <option value="29">PROPEQ</option>
-                            <option value="30">Reitoria</option>
-                            <option value="31">SECRI</option>
-                            <option value="32">SECOM</option>
-                            <option value="33">SETEC</option>
-                            <option value="34">SGP</option>
-                            <option value="35">STI</option>
-                            <option value="36">ViceReitoria</option>
+                            <?php foreach ($optionsArray as $option) : ?>
+                            <option value="<?= $option['id'] ?>"><?= $option['name'] ?></option>
+                            <?php endforeach; ?>
 
 
 
@@ -944,8 +486,8 @@ when usuarios.unidade = 36 then 'ViceReitoria'
 
 
 
-                            <option value="2">Usuario</option>
-                            <option value="5">Técnico</option>
+
+                            <option value="2">Solicitante</option>
 
 
 
@@ -955,44 +497,9 @@ when usuarios.unidade = 36 then 'ViceReitoria'
                         <select class="browser-default custom-select" name="unidade">
 
                             <option selected>Selecionar UNIDADE</option>
-
-                            <option value="1">CUVG</option>
-                            <option value="2">FAACC</option>
-                            <option value="3">FAAZ</option>
-                            <option value="4">FACC</option>
-                            <option value="5">FAEN</option>
-                            <option value="6">FAET</option>
-                            <option value="7">FAGEO</option>
-                            <option value="8">FANUT</option>
-                            <option value="9">FAVET</option>
-                            <option value="10">FD</option>
-                            <option value="11">FE</option>
-                            <option value="12">FEF</option>
-                            <option value="13">FENF</option>
-                            <option value="14">FM</option>
-                            <option value="15">IB</option>
-                            <option value="16">IC</option>
-                            <option value="17">ICET</option>
-                            <option value="18">ICHS</option>
-                            <option value="19">IE</option>
-                            <option value="20">IGHD</option>
-                            <option value="21">IL</option>
-                            <option value="22">ISC</option>
-                            <option value="23">PRAE</option>
-                            <option value="24">PROADI</option>
-                            <option value="25">PROCEV</option>
-                            <option value="26">PROEG</option>
-                            <option value="27">PROPG</option>
-                            <option value="28">PROPLAN</option>
-                            <option value="29">PROPEQ</option>
-                            <option value="30">Reitoria</option>
-                            <option value="31">SECRI</option>
-                            <option value="32">SECOM</option>
-                            <option value="33">SETEC</option>
-                            <option value="34">SGP</option>
-                            <option value="35">STI</option>
-                            <option value="36">ViceReitoria</option>
-
+                            <?php foreach ($optionsArray as $option) : ?>
+                            <option value="<?= $option['id'] ?>"><?= $option['name'] ?></option>
+                            <?php endforeach; ?>
 
 
 

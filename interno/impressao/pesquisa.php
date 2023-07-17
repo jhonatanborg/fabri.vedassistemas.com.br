@@ -15,7 +15,14 @@ if (!isset($_SESSION['s_login'])) {
  $result_users = "SELECT * FROM usuarios";
  $resultado_users = mysqli_query($conn, $result_users);
 
- 
+ $sql_unidades = "SELECT * FROM unidades";
+$result = mysqli_query($conn, $sql_unidades);
+
+$optionsArray = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $optionsArray[] = $row;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +42,6 @@ if (!isset($_SESSION['s_login'])) {
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="./js/report.js"></script>
 
 </head>
 <style type="text/css">
@@ -105,6 +111,10 @@ body {
                         <div class="input-group">
                             <label for="">Unidade</label>
                             <select id="select" class="form-control" name="unidade">
+                                <option value="all">TODOS</option>
+                                <?php foreach ($optionsArray as $option) : ?>
+                                <option value="<?= $option['id'] ?>"><?= $option['name'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -120,45 +130,23 @@ body {
                             </select>
                         </div>
                     </div>
-                    <div class="form-group  col-md-2">
-                        <div class="input-group">
-                            <label for="">Ano</label>
-                            <select class="form-control" name="ano">
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                                <option value="2025">2025</option>
-                                <option value="2026">2026</option>
-                                <option value="2027">2027</option>
-                                <option value="2028">2028</option>
-                                <option value="2029">2029</option>
-                                <option value="2030">2030</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="form-group col-md-2">
                         <div class="input-group">
-                            <label for="">Mes</label>
-                            <select class="form-control" name="mes">
-                                <option value="01">Janeiro</option>
-                                <option value="02">Fevereiro</option>
-                                <option value="03">Março</option>
-                                <option value="04">Abril</option>
-                                <option value="05">Maio</option>
-                                <option value="06">Junho</option>
-                                <option value="07">Julho</option>
-                                <option value="08">Agosto</option>
-                                <option value="09">Setembro</option>
-                                <option value="10">Outubro</option>
-                                <option value="11">Novembro</option>
-                                <option value="12">Dezembro</option>
+                            <label for="">Status</label>
+                            <select class="form-control" name="status">
+                                <option value="all">TODOS</option>
+                                <option value="4">Concluido</option>
+                                <option value="8">Recebidos</option>
                             </select>
                         </div>
                     </div>
-
+                    <div class="form-group  col-md-2">
+                        <div class="input-group">
+                            <label for="">Data</label>
+                            <input required class="form-control" type="month" id="start" name="data" min="2023-07"
+                                value="2023-07">
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-danger"> Consultar
                 </button>

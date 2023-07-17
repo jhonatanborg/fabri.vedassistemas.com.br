@@ -31,9 +31,7 @@ $unidades = [];
 while ($row = mysqli_fetch_assoc($result)) {
   $unidades[] = $row;
 }
-
-// Converter o array em uma string JSON
-$unidades_json = json_encode($unidades);
+    
 ?>
 
 
@@ -338,9 +336,7 @@ body {
         margin: 0;
     }
 
-    &[type=number] {
-        -moz-appearance: textfield;
-    }
+
 
     &+.form-label {
         pointer-events: none;

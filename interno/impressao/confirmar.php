@@ -1,5 +1,4 @@
-
-  <?php
+<?php
 
 include_once("../conexao_bd.php");
 
@@ -16,13 +15,10 @@ $disponivel = $_POST['disponivel'];
 
 $id = mysqli_real_escape_string($conn, $_POST['id']);
 
-$result_produtos = "UPDATE impressao SET status = '1', data=NOW() WHERE id = '$id' AND NOT status = '4' "; 
+$result_produtos = "UPDATE impressao SET status = '1', data=NOW() WHERE id = '$id' AND NOT status = '4' AND NOT status = '8' "; 
 
 $resultado_produtos = mysqli_query($conn, $result_produtos);
 
 echo '<script>location.href="solicitados.php"</script>';
 
 ?>
-
-
-

@@ -5,32 +5,33 @@
 include_once("../conexao_bd.php");
 
 
+$data = json_decode(file_get_contents('php://input'), true);
+
+// Acessar os valores específicos do payload
+$codigo = $data['codigo'];
+$quantidade = $data['quantidade'];
+$descricao = $data['descricao_prod'];
+$valor_unidade = $data['valor_unidade'];
+$id = $data['id'];
 
 
 
-	$id = mysqli_real_escape_string($conn, $_POST['id']);
 
-	$codigo = mysqli_real_escape_string($conn, $_POST['codigo']);
-
-	$quantidade = mysqli_real_escape_string($conn, $_POST['quantidade']);
-
-	$descricao = mysqli_real_escape_string($conn, $_POST['descricao_prod']);
-
-
-
-	
-
-
-
-	$result_produtos = "UPDATE produtos SET codigo='$codigo', quantidade =  '$quantidade', descricao_prod='$descricao' WHERE id = '$id'";
-
-	
-
+	$result_produtos = "UPDATE produtos SET codigo='$codigo', quantidade =  '$quantidade', descricao_prod='$descricao', valor_unidade='$valor_unidade' WHERE id = '$id'";
 	$resultado_produtos = mysqli_query($conn, $result_produtos);
+	print_r($result_produtos);
+	$response = [
+		'status' => 'success',
+		'message' => 'Produto atualizado com sucesso!'
+	];
+	
+	if(!$resultado_produtos){
+		$response = [
+			'status' => 'error',
+			'message' => 'Erro ao atualizar produto!'
+		];
+	}
 
-
-
-	header("Location:inicio.php"); exit;
+	echo json_encode($response);
 
 ?>
-

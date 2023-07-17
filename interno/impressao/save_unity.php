@@ -27,9 +27,6 @@ while ($row = mysqli_fetch_assoc($result)) {
   $unity_list[] = $row;
 }
 
-
-// return $result api json response
-
 $response = [
     'success' => true,
     'message' => 'Unidade atualizada com sucesso!',
@@ -42,4 +39,5 @@ if ($result_update) {
 } else {
     echo json_encode(['success' => false, 'message' => 'Erro ao atualizar unidade!']);
 }
+
 ?>

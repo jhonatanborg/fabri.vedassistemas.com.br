@@ -29,69 +29,31 @@ if (!isset($_SESSION['s_login'])) {
  $VarUnidade = $_SESSION['s_unidade'];
 
 
+$data = json_decode(file_get_contents('php://input'), true);
 
+// Acessar os valores específicos do payload
 
-$id = filter_input(INPUT_POST,'id', FILTER_SANITIZE_STRING);
+$descricao = $data['descricao'];
+$id = $data['id'];
+$quantidade = $data['quantidade'];
 
-$descricao = filter_input(INPUT_POST,'descricao', FILTER_SANITIZE_STRING);
-
-$quantidade = filter_input(INPUT_POST,'quantidade', FILTER_SANITIZE_STRING);
-
-
-
-
-
-$id_produto = "SELECT id, quantidade FROM produtos WHERE id= '$id'";
-
-$resultado_produto = mysqli_query($conn,$id_produto);
-
-
-
-while($lista_id = mysqli_fetch_assoc($resultado_produto)) {
-
-	$lista = $lista_id["id"];
-
-	$estoque = $lista_id["quantidade"];
-
-}
-
-
-
-$dispon = "SELECT SUM(quantidade) AS quantidade FROM impressao WHERE id_produto = '$lista' AND NOT status = 2 AND NOT status = 0 AND NOT status = 5";
-
-$disponivel = mysqli_query($conn, $dispon);
-
-while ($row_disp = mysqli_fetch_assoc($disponivel)) {
-
-	$qntd_dispon = $row_disp["quantidade"];
-
-}
-
-$dispon_final = $estoque - $qntd_dispon;
-
-
-
-if ($quantidade <= $dispon_final) {
-
-	$result_impres = "INSERT INTO impressao (descricao, quantidade, id_produto,status, id_professor, unidade) VALUES ('$descricao', '$quantidade','$lista','0', '$VarID', '$VarUnidade')";
+$result_impres = "INSERT INTO impressao (descricao, quantidade, id_produto,status, id_professor, id_unidade) VALUES ('$descricao', '$quantidade','$id','0', '$VarID', '$VarUnidade')";
 
 $resultado_impres = mysqli_query($conn,$result_impres);
 
 
 
-if ($resultado_impres = true) {
+$response = [
+	'success' => true,
+	'message' => 'Solicitado com sucesso!',
+	
+];
 
-	header("Location:index.php");
-
-}
-
-}
-
-else {
-
-echo '<script>alert(\'Quantidade em estoque indisponível, tente uma quantidade menor\');parent.location =\'solicitar_servico.php\';</script>';
-
+header('Content-Type: application/json');
+if ($resultado_impres) {
+	echo json_encode($response);
+} else {
+	echo json_encode(['success' => false, 'message' => 'Erro ao solicitar !', 'error' => mysqli_error($conn)]);
 }
 
 ?>
-
