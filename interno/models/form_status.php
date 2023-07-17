@@ -2,10 +2,10 @@
 
 
 
-function confirmReceive($id) {
+function confirmReceive($id, $status) {
   include_once("../conexao_bd.php");
   
-  $sql_update = "UPDATE impressao SET status = '8', data=NOW() WHERE id = '$id'"; 
+  $sql_update = "UPDATE impressao SET status = '$status', data=NOW() WHERE id = '$id'"; 
   $resultUpdate = mysqli_query($conn, $sql_update);
   $response = [
 	'success' => true,
@@ -27,10 +27,10 @@ $data = json_decode(file_get_contents('php://input'), true);
 // Acessar os valores específicos do payload
 
 $id = $data['id'];
-
-if($id) {
+$status = $data['status'];
+if($id && $status) {
  
-  confirmReceive($id);
+  confirmReceive($id, $status);
 }
 
 

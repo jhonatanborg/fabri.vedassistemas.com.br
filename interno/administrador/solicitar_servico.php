@@ -75,7 +75,11 @@ if (!isset($_SESSION['s_login'])) {
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.php">INICIO</a></li>
+
+                        <li><a href="index.php">INICIO</a></li>
+                        <li class="active"><a href="solicitar_servico.php">SOLICITAR SERVIÇO</a></li>
+
+
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

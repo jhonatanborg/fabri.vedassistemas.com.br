@@ -50,12 +50,6 @@ if (isset($_POST['filtrar'])) {
 }
 ?>
 
-
-
-
-
-
-
 <!DOCTYPE html>
 
 <html lang="en">
