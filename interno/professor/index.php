@@ -15,6 +15,7 @@ if (!isset($_SESSION['s_login'])) {
 
 }
 
+
  $VarID    = $_SESSION['s_id'];
 
  $VarLogin = $_SESSION['s_login'];
@@ -35,7 +36,18 @@ if (!isset($_SESSION['s_login'])) {
   return $resultado;
  };
  
+if (isset($_POST['filtrar'])) {
+   
+  // Chamar a função PHP aqui
+  $data = $_POST['data'];
+  $ano = substr($data, 0, 4);
+  $mes = substr($data, 5, 2);
   $resultado = loadData();
+ 
+} else {
+    $resultado = loadData();
+    
+}
 ?>
 
 
@@ -105,16 +117,13 @@ if (!isset($_SESSION['s_login'])) {
                     <ul class="nav navbar-nav">
 
                         <li class="active"><a href="index.php">INICIO</a></li>
+                        <li><a href="solicitar_servico.php">SOLICITAR SERVIÇO</a></li>
 
 
 
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-
-
-
-
 
                         <li><a href="#"><?php echo "$VarNome"; ?></a></li>
 
@@ -135,26 +144,40 @@ if (!isset($_SESSION['s_login'])) {
 
             <div class="table-title">
 
-                <div class="row">
-
-                    <div class="col-sm-6">
-
+                <div class="row align-items-center">
+                    <div class="col-sm-1">
                         <h2>Serviços</b></h2>
 
                     </div>
+                    <form class="col-sm-3 row" method="POST" action="">
+                        <div class="form-group col-sm-6">
+                            <div class="input-group">
+                                <input required class="form-control" type="month" id="start" name="data" min="2023-07"
+                                    value="<?php echo $ano.'-'.$mes; ?>">
+                            </div>
 
-                    <div class="col-sm-6">
+
+                        </div>
+                        <div class="col-sm-3">
+                            <a> <button type="submit" name="filtrar" class="btn btn-lg btn-info"><i
+                                        class="fa fa-search"></i></button></a>
+                        </div>
+
+                    </form>
+                    <div class="col-sm-8">
 
                         <div class="row ">
+                            <div>
+                                <a href='javascript:window.print()' class="btn btn-success" data-toggle="modal"><i
+                                        class="fa fa-print"></i> <span>IMPRIMIR RECIBO</span></a>
 
-                            <a href="solicitar_servico.php" class="btn btn-success"><i
-                                    class="material-icons">&#xE147;</i>
-                                <span>Solicitar Serviço</span></a>
-
+                            </div>
                             <a> <button @click="filter = '0'" class="btn btn-lg btn-info">Aguardando</button></a>
 
-                            <a><button @click="filter = '1'" class="btn btn-lg btn-warning">Confirmados</button></a>
-                            <a><button @click="filter = '4'" class="btn btn-lg btn-info">Concluidos</button></a>
+                            <a><button @click="filter = '1'" class="btn btn-lg btn-warning">Autorizados</button></a>
+                            <a><button @click="filter = '8'" class="btn btn-lg btn-info">Recebidos</button></a>
+                            <a><button @click="filter = '2'" class="btn btn-lg btn-danger">Recusados</button></a>
+                            <a><button @click="filter = '4'" class="btn btn-lg btn-success">Concluido</button></a>
 
                             <a><button @click="filter = ''" class="btn btn-lg btn-primary">Todos</button></a>
                         </div>
@@ -164,11 +187,14 @@ if (!isset($_SESSION['s_login'])) {
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
+                        <th style="width: 140px;">#ID</th>
+                        <th style="width: 140px;">Codigo</th>
                         <th style="width: 140px;">Data Inicio</th>
                         <th>Quantidade</th>
-                        <th>Disponivel</th>
                         <th>Descrição</th>
                         <th>Serviço</th>
+                        <th>Valor unidade</th>
+                        <th>Total</th>
                         <th>Atualização</th>
                         <th>Status</th>
                     </tr>
@@ -176,11 +202,14 @@ if (!isset($_SESSION['s_login'])) {
 
                 <tbody>
                     <tr v-for="(item, key) in listimpress">
+                        <td v-text="item.id"></td>
+                        <td v-text="item.codigo"></td>
                         <td v-text="item.data_inicio"></td>
                         <td v-text="item.quantidade"></td>
-                        <td v-text="item.disponivel"></td>
                         <td v-text="item.descricao"></td>
                         <td v-text="item.descricao_prod"></td>
+                        <td v-text="formatCurrency(item.valor_unidade)"></td>
+                        <td v-text="formatCurrency(item.quantidade * item.valor_unidade)"></td>
                         <td v-text="item.data"></td>
                         <td>
                             <div class="row align-items-center justify-content-between"
@@ -226,6 +255,7 @@ if (!isset($_SESSION['s_login'])) {
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="../administrador/js/utils.js"></script>
 
 <script>
 var app = new Vue({
@@ -262,7 +292,9 @@ var app = new Vue({
         }
     },
     methods: {
-
+        formatCurrency(value) {
+            return formatCurrency(value)
+        },
         openModal(id) {
             this.isModalOpen = true;
             this.impressSelected = id;

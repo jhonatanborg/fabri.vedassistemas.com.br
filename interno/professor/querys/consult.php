@@ -5,36 +5,41 @@ error_reporting(E_ALL);
 function realizarConsulta($VarID, $mes, $ano) {
 include_once("../conexao_bd.php");
 
-  // Consulta SQL
-  $sql = "SELECT impressao.id, impressao.descricao, impressao.quantidade, impressao.status,
-          produtos.quantidade - (
-            SELECT COALESCE(SUM(impressao2.quantidade), 0)
-            FROM impressao impressao2 
-            WHERE (impressao2.status = 1 OR impressao2.status = 3 OR impressao2.status = 4) 
-            AND EXTRACT(MONTH FROM impressao2.data) = '$mes'
-            AND EXTRACT(YEAR FROM impressao2.data) = '$ano' 
-            AND impressao2.id_produto = impressao.id_produto
-          ) AS disponivel,
-          impressao.id_produto, impressao.data_inicio, produtos.descricao_prod, produtos.codigo,
-          CASE 
-            WHEN impressao.status = 0 THEN 'AGUARDANDO'
-            WHEN impressao.status = 1 THEN 'CONFIRMADO'
-            WHEN impressao.status = 2 THEN 'RECUSADO'
-            WHEN impressao.status = 3 THEN 'EXECUTANDO'
-            WHEN impressao.status = 4 THEN 'CONCLUÍDO'
-            WHEN impressao.status = 5 THEN 'CANCELADO'
-            WHEN impressao.status = 8 THEN 'RECEBIDO'
-          END AS Status,
-          impressao.data, impressao.id_professor, usuarios.nome AS Solicitante, usuarios2.nome AS Executor
-          FROM impressao
-          LEFT JOIN produtos ON produtos.id = impressao.id_produto
-          LEFT JOIN usuarios ON impressao.id_professor = usuarios.id
-          LEFT JOIN usuarios usuarios2 ON impressao.status = usuarios2.id
-          WHERE NOT impressao.status = 5 AND usuarios.id = '$VarID' AND NOT produtos.status = 1";
-
+  
+$sql2= "SELECT 
+  i.id,
+  i.descricao,
+  i.quantidade,
+  i.status,
+  i.id_produto,
+  i.data_inicio,
+  p.descricao_prod,
+  p.codigo,
+  p.valor_unidade,
+  CASE i.status
+    WHEN 0 THEN 'AGUARDANDO'
+    WHEN 1 THEN 'CONFIRMADO'
+    WHEN 2 THEN 'RECUSADO'
+    WHEN 3 THEN 'EXECUTANDO'
+    WHEN 4 THEN 'CONCLUÍDO'
+    WHEN 5 THEN 'CANCELADO'
+    WHEN 8 THEN 'RECEBIDO'
+  END AS Status,
+  i.data,
+  i.id_professor,
+  u.nome AS Solicitante,
+  u2.nome AS Executor
+FROM impressao i
+LEFT JOIN produtos p ON p.id = i.id_produto
+LEFT JOIN usuarios u ON i.id_professor = u.id
+LEFT JOIN usuarios u2 ON i.status = u2.id
+WHERE i.status IN (0, 1, 2, 3, 4, 5, 8)
+  AND u.id = '$VarID'
+  AND EXTRACT(MONTH FROM i.data) = '$mes'
+  AND EXTRACT(YEAR FROM i.data) = '$ano'
+  AND p.status <> 8";
   // Executar a consulta
-  $result = mysqli_query($conn, $sql);
-
+  $result = mysqli_query($conn, $sql2);
 
 
   // Obter os resultados da consulta

@@ -114,7 +114,6 @@ if (!isset($_SESSION['s_login'])) {
                     <th>Solicitante</th>
                     <th>Quantidade</th>
                     <th>Valor unidade</th>
-                    <th>Disponivel</th>
                     <th>Descrição</th>
                     <th>Serviço</th>
                     <th>Total</th>
@@ -127,23 +126,11 @@ if (!isset($_SESSION['s_login'])) {
                 <?php
     $result_impres= "SELECT impressao.id,impressao.descricao,
 impressao.quantidade,impressao.status,
-
-produtos.quantidade-
-(select coalesce(sum(impressao2.quantidade),0) from impressao impressao2
-    where (impressao2.status=1 or
-impressao2.status=3 or impressao2.status=4) and extract(month FROM impressao2.data)=1
-and extract(year FROM impressao2.data)=2019 and impressao2.id_produto=impressao.id_produto)
-
-as disponivel,
-SUM(impressao.quantidade) AS totquantidade,
-  produtos.valor_unidade AS valortotal,
-  SUM(impressao.quantidade * produtos.valor_unidade) AS valortotal,
-impressao.id_produto,impressao.data_inicio,produtos.descricao_prod, produtos.codigo,  produtos.valor_unidade as valor_unidade,
+impressao.id_produto,impressao.data_inicio,produtos.descricao_prod, produtos.codigo, produtos.valor_unidade as valor_unidade,
 case when impressao.status=0 then 'AGUARDANDO'
 when impressao.status=1 then 'CONFIRMADO'
 when impressao.status=2 then 'RECUSADO'
 when impressao.status=3 then 'EXECUTANDO'
-when impressao.status = 8 THEN 'RECEBIDO'
 when impressao.status=4 then 'CONCLUÍDO' end as Status,
 impressao.data, impressao.id_professor, usuarios.nome as Solicitante, usuarios2.nome as Executor FROM impressao
 left join produtos on (produtos.id=impressao.id_produto)
@@ -162,10 +149,9 @@ WHERE impressao.status = '0' AND impressao.id_unidade = $VarUnidade";
                     <td><?php echo $rows_impres['Solicitante']; ?></td>
                     <td><?php echo $rows_impres['quantidade']; ?></td>
                     <td><?php echo formatCurrency($rows_impres['valor_unidade']); ?></td>
-                    <td><?php echo $rows_impres['disponivel']; ?></td>
                     <td><?php echo $rows_impres['descricao']; ?></td>
                     <td><?php echo $rows_impres['descricao_prod']; ?></td>
-                    <td><?php echo formatCurrency($rows_impres['valortotal']); ?></td>
+                    <td><?php echo formatCurrency($rows_impres['quantidade'] * $rows_impres["valor_unidade"] ); ?></td>
 
                     <td><?php echo $rows_impres['data']; ?></td>
                     <td><?php echo $rows_impres['Status']; ?></td>

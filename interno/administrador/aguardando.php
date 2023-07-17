@@ -13,7 +13,15 @@ if (!isset($_SESSION['s_login'])) {
  $VarNivel = $_SESSION['s_nivel'];
  $VarUnidade = $_SESSION['s_unidade'];
 
+ $sql = "SELECT * FROM unidades WHERE id = '$VarUnidade'";
+  $result = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_assoc($result);
+  $VarUnidadeNome = $row['name'];
+  function formatCurrency($value){
+   // string R$ + number_format
+ return "R$ " . number_format($value, '4', ',','.');
 
+};
 ?>
 
 
@@ -32,178 +40,8 @@ if (!isset($_SESSION['s_login'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style type="text/css">
-    body {
-        color: #566787;
-        background: #f5f5f5;
-        font-family: 'Varela Round', sans-serif;
-        font-size: 13px;
-    }
+    <link rel="stylesheet" href="./css/style.css">
 
-    .table-wrapper {
-        background: #fff;
-        padding: 20px 25px;
-        margin: 30px 0;
-        border-radius: 3px;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-    }
-
-    .table-title {
-        padding-bottom: 15px;
-        background: #435d7d;
-        color: #fff;
-        padding: 16px 30px;
-        margin: -20px -25px 10px;
-        border-radius: 3px 3px 0 0;
-    }
-
-    .table-title h2 {
-        margin: 5px 0 0;
-        font-size: 24px;
-    }
-
-    .table-title .btn-group {
-        float: right;
-    }
-
-    .table-title .btn {
-        color: #fff;
-        float: right;
-        font-size: 13px;
-        border: none;
-        min-width: 50px;
-        border-radius: 2px;
-        border: none;
-        outline: none !important;
-        margin-left: 10px;
-    }
-
-    .table-title .btn i {
-        float: left;
-        font-size: 21px;
-        margin-right: 5px;
-    }
-
-    .table-title .btn span {
-        float: left;
-        margin-top: 2px;
-    }
-
-    table.table tr th,
-    table.table tr td {
-        border-color: #e9e9e9;
-        padding: 12px 15px;
-        vertical-align: middle;
-    }
-
-    table.table tr th:first-child {
-        width: 60px;
-    }
-
-    table.table tr th:last-child {
-        width: 100px;
-    }
-
-    table.table-striped tbody tr:nth-of-type(odd) {
-        background-color: #fcfcfc;
-    }
-
-    table.table-striped.table-hover tbody tr:hover {
-        background: #f5f5f5;
-    }
-
-    table.table th i {
-        font-size: 13px;
-        margin: 0 5px;
-        cursor: pointer;
-    }
-
-    table.table td:last-child i {
-        opacity: 0.9;
-        font-size: 22px;
-        margin: 0 5px;
-    }
-
-    table.table td a {
-        font-weight: bold;
-        color: #566787;
-        display: inline-block;
-        text-decoration: none;
-        outline: none !important;
-    }
-
-    table.table td a:hover {
-        color: #2196F3;
-    }
-
-    table.table td a.edit {
-        color: #FFC107;
-    }
-
-    table.table td a.delete {
-        color: #F44336;
-    }
-
-    table.table td i {
-        font-size: 19px;
-    }
-
-    table.table .avatar {
-        border-radius: 50%;
-        vertical-align: middle;
-        margin-right: 10px;
-    }
-
-    .hint-text {
-        float: left;
-        margin-top: 10px;
-        font-size: 13px;
-    }
-
-
-    /* Modal styles */
-    .modal .modal-dialog {
-        max-width: 400px;
-    }
-
-    .modal .modal-header,
-    .modal .modal-body,
-    .modal .modal-footer {
-        padding: 20px 30px;
-    }
-
-    .modal .modal-content {
-        border-radius: 3px;
-    }
-
-    .modal .modal-footer {
-        background: #ecf0f1;
-        border-radius: 0 0 3px 3px;
-    }
-
-    .modal .modal-title {
-        display: inline-block;
-    }
-
-    .modal .form-control {
-        border-radius: 2px;
-        box-shadow: none;
-        border-color: #dddddd;
-    }
-
-    .modal textarea.form-control {
-        resize: vertical;
-    }
-
-    .modal .btn {
-        border-radius: 2px;
-        min-width: 100px;
-    }
-
-    .modal form label {
-        font-weight: normal;
-    }
-    </style>
 </head>
 
 <body>
@@ -229,7 +67,20 @@ if (!isset($_SESSION['s_login'])) {
                 <ul class="nav navbar-nav navbar-right">
 
 
-                    <li><a href="#"><?php echo "$VarNome"; ?></a></li>
+                    <li>
+                        <a href="">
+                            <div class="row">
+                                <span>
+                                    <b>
+                                        <?php echo "$VarNome"; ?>
+                                    </b>
+                                </span>
+                                <small>
+                                    <?php echo "$VarUnidadeNome"; ?>
+                                </small>
+                            </div>
+                        </a>
+                    </li>
                     <li><a href="../administrador/logout.php">SAIR</a></li>
                 </ul>
             </div>
@@ -262,9 +113,10 @@ if (!isset($_SESSION['s_login'])) {
                     <th>Código</th>
                     <th>Solicitante</th>
                     <th>Quantidade</th>
-                    <th>Disponivel</th>
+                    <th>Valor unidade</th>
                     <th>Descrição</th>
                     <th>Serviço</th>
+                    <th>Total</th>
                     <th>Atualização</th>
                     <th>Status</th>
                     <th>Ação</th>
@@ -274,15 +126,7 @@ if (!isset($_SESSION['s_login'])) {
                 <?php
     $result_impres= "SELECT impressao.id,impressao.descricao,
 impressao.quantidade,impressao.status,
-
-produtos.quantidade-
-(select coalesce(sum(impressao2.quantidade),0) from impressao impressao2
-    where (impressao2.status=1 or
-impressao2.status=3 or impressao2.status=4) and extract(month FROM impressao2.data)=1
-and extract(year FROM impressao2.data)=2019 and impressao2.id_produto=impressao.id_produto)
-
-as disponivel,
-impressao.id_produto,impressao.data_inicio,produtos.descricao_prod, produtos.codigo,
+impressao.id_produto,impressao.data_inicio,produtos.descricao_prod, produtos.codigo, produtos.valor_unidade as valor_unidade,
 case when impressao.status=0 then 'AGUARDANDO'
 when impressao.status=1 then 'CONFIRMADO'
 when impressao.status=2 then 'RECUSADO'
@@ -292,7 +136,7 @@ impressao.data, impressao.id_professor, usuarios.nome as Solicitante, usuarios2.
 left join produtos on (produtos.id=impressao.id_produto)
 left join usuarios on (impressao.id_professor = usuarios.id)
 left join usuarios usuarios2 on (impressao.status = usuarios2.id)
-WHERE impressao.status=0 AND impressao.id_unidade = $VarUnidade";
+WHERE impressao.status = '0' AND impressao.id_unidade = $VarUnidade";
     $resultado_impres = mysqli_query($conn, $result_impres);
     ?>
 
@@ -304,18 +148,14 @@ WHERE impressao.status=0 AND impressao.id_unidade = $VarUnidade";
 
                     <td><?php echo $rows_impres['Solicitante']; ?></td>
                     <td><?php echo $rows_impres['quantidade']; ?></td>
-                    <td><?php echo $rows_impres['disponivel']; ?></td>
+                    <td><?php echo formatCurrency($rows_impres['valor_unidade']); ?></td>
                     <td><?php echo $rows_impres['descricao']; ?></td>
                     <td><?php echo $rows_impres['descricao_prod']; ?></td>
+                    <td><?php echo formatCurrency($rows_impres['quantidade'] * $rows_impres["valor_unidade"] ); ?></td>
 
                     <td><?php echo $rows_impres['data']; ?></td>
                     <td><?php echo $rows_impres['Status']; ?></td>
                     <td>
-
-
-
-
-
                         <a href="#" class="delete"><i type="button" class="material-icons" data-toggle="modal"
                                 title="Recusar" data-target="#deleteEmployeeModal"
                                 data-whatever="<?php echo $rows_impres['id']; ?>"
@@ -344,56 +184,6 @@ WHERE impressao.status=0 AND impressao.id_unidade = $VarUnidade";
 
     </div>
     </div>
-    <!-- Edit Modal HTML -->
-    <div id="exampleModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"></h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-
-                    <form method="POST" action="update_envio.php" enctype="multipart/form-data">
-
-                        <div class="form-group">
-                            <label>QUANTIDADE</label>
-                            <input type="text" class="form-control" required name="quantidade" id="quantidade"
-                                onkeyup="somenteNumeros(this);">
-                        </div>
-                        <div class="form-group">
-                            <label>DESCRIÇÃO</label>
-                            <input type="text" class="form-control" required name="descricao" id="descricao">
-                        </div>
-
-                        <input name="id" type="hidden" class="form-control" id="id" value="">
-                        <select required name="descricao_prod" class="browser-default custom-select my-3" id="">
-                            <option selected>Tipo de impressão</option>
-
-                            <?php
-            $result_produtos = "SELECT * FROM produtos WHERE status = '0'";
-            $resultado_produtos = mysqli_query($conn, $result_produtos);
-            while($row_produtos = mysqli_fetch_assoc($resultado_produtos)){ ?>
-                            <option value="<?php echo $row_produtos['descricao_prod']; ?>">
-                                <?php echo $row_produtos['descricao_prod'];?></option> <?php
-            }
-          ?>
-                        </select>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="submit" class="btn btn-info" value="Salvar">
-                    </form>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-    </div>
-    </div>
-
-
-
     <div id="deleteEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
