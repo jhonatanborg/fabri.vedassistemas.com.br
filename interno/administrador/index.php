@@ -160,118 +160,119 @@ if (isset($_POST['filtrar'])) {
                     </form>
                     <div class="col-sm-8">
 
-                        <div class="row ">
-                            <div>
-                                <a href='javascript:window.print()' class="btn btn-success" data-toggle="modal"><i
-                                        class="fa fa-print"></i> <span>IMPRIMIR RECIBO</span></a>
+                        <div class="row">
+                            <div class="row ">
+                                <div>
+                                    <a href='javascript:window.print()' class="btn btn-success" data-toggle="modal"><i
+                                            class="fa fa-print"></i> <span>IMPRIMIR RECIBO</span></a>
 
+                                </div>
+                                <a><button @click="filter = '2'" class="btn btn-danger">Recusados</button></a>
+                                <a><button @click="filter = '8'" class="btn btn-info">Recebidos</button></a>
+                                <a><button @click="filter = '4'" class="btn btn-success">Concluido</button></a>
+                                <a><button @click="filter = '1'" class="btn btn-warning">Autorizados</button></a>
+                                <a> <button @click="filter = '0'" class="btn btn-info">Aguardando</button></a>
+                                <a><button @click="filter = ''" class="btn btn-primary">Todos</button></a>
                             </div>
-                            <a> <button @click="filter = '0'" class="btn btn-lg btn-info">Aguardando</button></a>
-
-                            <a><button @click="filter = '1'" class="btn btn-lg btn-warning">Autorizados</button></a>
-                            <a><button @click="filter = '8'" class="btn btn-lg btn-info">Recebidos</button></a>
-                            <a><button @click="filter = '2'" class="btn btn-lg btn-danger">Recusados</button></a>
-                            <a><button @click="filter = '4'" class="btn btn-lg btn-success">Concluido</button></a>
-
-                            <a><button @click="filter = ''" class="btn btn-lg btn-primary">Todos</button></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th style="width: 140px;">#ID</th>
-                        <th style="width: 140px;">Codigo</th>
-                        <th style="width: 140px;">Data Inicio</th>
-                        <th>Quantidade</th>
-                        <th>Descrição</th>
-                        <th>Serviço</th>
-                        <th>Valor unidade</th>
-                        <th>Total</th>
-                        <th>Atualização</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
+        </div>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 140px;">#ID</th>
+                    <th style="width: 140px;">Codigo</th>
+                    <th style="width: 140px;">Data Inicio</th>
+                    <th>Quantidade</th>
+                    <th>Descrição</th>
+                    <th>Serviço</th>
+                    <th>Valor unidade</th>
+                    <th>Total</th>
+                    <th>Atualização</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
 
-                <tbody>
-                    <tr v-for="(item, key) in listimpress">
-                        <td v-text="item.id"></td>
-                        <td v-text="item.codigo"></td>
-                        <td v-text="item.data_inicio"></td>
-                        <td v-text="item.quantidade"></td>
-                        <td v-text="item.descricao"></td>
-                        <td v-text="item.descricao_prod"></td>
-                        <td v-text="formatCurrency(item.valor_unidade)"></td>
-                        <td v-text="formatCurrency(item.quantidade * item.valor_unidade)"></td>
-                        <td v-text="item.data"></td>
-                        <td>
-                            <div class="row align-items-center justify-content-between"
-                                :class="{'cursor-pointer font-bold': item.status === '4'}">
-                                <div class="col-sm-8">
-                                    <span v-text="item.Status"></span>
-                                </div>
-                                <div @click="openModal(item.id)" class="col-sm-4" v-if="item.status === '4'">
-                                    <span class="material-symbols-outlined  color-red">
-                                        receipt_long
-                                    </span>
-                                </div>
-                                <div @click="openModalConfirm(item.id)" class="col-sm-4" v-if="item.status === '0'">
-                                    <span class="material-symbols-outlined  color-red">
-                                        send
-                                    </span>
-                                </div>
+            <tbody>
+                <tr v-for="(item, key) in listimpress">
+                    <td v-text="item.id"></td>
+                    <td v-text="item.codigo"></td>
+                    <td v-text="item.data_inicio"></td>
+                    <td v-text="item.quantidade"></td>
+                    <td v-text="item.descricao"></td>
+                    <td v-text="item.descricao_prod"></td>
+                    <td v-text="formatCurrency(item.valor_unidade)"></td>
+                    <td v-text="formatCurrency(item.quantidade * item.valor_unidade)"></td>
+                    <td v-text="item.data"></td>
+                    <td>
+                        <div class="row align-items-center justify-content-between"
+                            :class="{'cursor-pointer font-bold': item.status === '4'}">
+                            <div class="col-sm-8">
+                                <span v-text="item.Status"></span>
                             </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            <div @click="openModal(item.id)" class="col-sm-4" v-if="item.status === '4'">
+                                <span class="material-symbols-outlined  color-red">
+                                    receipt_long
+                                </span>
+                            </div>
+                            <div @click="openModalConfirm(item.id)" class="col-sm-4" v-if="item.status === '0'">
+                                <span class="material-symbols-outlined  color-red">
+                                    send
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p class="pull-left"> Copyright © Vedas Sistemas 2023. Todos os direitos reservados. </p>
         </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <p class="pull-left"> Copyright © Vedas Sistemas 2023. Todos os direitos reservados. </p>
-            </div>
-        </div>
-        <div class="modal fade in" :class="{'d-block': isModalOpen}">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Confirmação de recebimento</h4>
-                        <button type="button" class="close" @click="closeModal" data-dismiss="modal"
-                            aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Tem certeza que deseja confirmar que o serviço foi entregue corretamente?</p>
-                        <p class="text-warning"><small>Esta ação não pode ser desfeita.</small></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" @click="closeModal" class="btn btn-default"
-                            data-dismiss="modal">Cancelar</button>
-                        <button @click="confirmReceived" type="button" class="btn btn-danger">Confirmar</button>
-                    </div>
+    </div>
+    <div class="modal fade in" :class="{'d-block': isModalOpen}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirmação de recebimento</h4>
+                    <button type="button" class="close" @click="closeModal" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja confirmar que o serviço foi entregue corretamente?</p>
+                    <p class="text-warning"><small>Esta ação não pode ser desfeita.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" @click="closeModal" class="btn btn-default"
+                        data-dismiss="modal">Cancelar</button>
+                    <button @click="confirmReceived" type="button" class="btn btn-danger">Confirmar</button>
                 </div>
             </div>
         </div>
-        <div class="modal fade in" :class="{'d-block': isModalOpenConfirm}">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Autorizar pedido</h4>
-                        <button type="button" @click="closeModalConfirm" class="close" data-dismiss="modal"
-                            aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Tem certeza que deseja autorizar o serviço?</p>
-                        <p class="text-warning"><small>Esta ação não pode ser desfeita.</small></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" @click="closeModalConfirm" class="btn btn-default"
-                            data-dismiss="modal">Cancelar</button>
-                        <button @click="confirmRequest" type="button" class="btn btn-danger">Confirmar</button>
-                    </div>
+    </div>
+    <div class="modal fade in" :class="{'d-block': isModalOpenConfirm}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Autorizar pedido</h4>
+                    <button type="button" @click="closeModalConfirm" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja autorizar o serviço?</p>
+                    <p class="text-warning"><small>Esta ação não pode ser desfeita.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" @click="closeModalConfirm" class="btn btn-default"
+                        data-dismiss="modal">Cancelar</button>
+                    <button @click="confirmRequest" type="button" class="btn btn-danger">Confirmar</button>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 </body>

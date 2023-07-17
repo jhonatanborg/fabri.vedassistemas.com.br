@@ -166,14 +166,12 @@ if (isset($_POST['filtrar'])) {
                                         class="fa fa-print"></i> <span>IMPRIMIR RECIBO</span></a>
 
                             </div>
-                            <a> <button @click="filter = '0'" class="btn btn-lg btn-info">Aguardando</button></a>
-
-                            <a><button @click="filter = '1'" class="btn btn-lg btn-warning">Autorizados</button></a>
-                            <a><button @click="filter = '8'" class="btn btn-lg btn-info">Recebidos</button></a>
-                            <a><button @click="filter = '2'" class="btn btn-lg btn-danger">Recusados</button></a>
-                            <a><button @click="filter = '4'" class="btn btn-lg btn-success">Concluido</button></a>
-
-                            <a><button @click="filter = ''" class="btn btn-lg btn-primary">Todos</button></a>
+                            <a><button @click="filter = '2'" class="btn btn-danger">Recusados</button></a>
+                            <a><button @click="filter = '8'" class="btn btn-info">Recebidos</button></a>
+                            <a><button @click="filter = '4'" class="btn btn-success">Concluido</button></a>
+                            <a><button @click="filter = '1'" class="btn btn-warning">Autorizados</button></a>
+                            <a> <button @click="filter = '0'" class="btn btn-info">Aguardando</button></a>
+                            <a><button @click="filter = ''" class="btn btn-primary">Todos</button></a>
                         </div>
                     </div>
                 </div>
