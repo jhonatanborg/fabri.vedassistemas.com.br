@@ -87,6 +87,7 @@ $VarUnidade = $_SESSION['s_unidade'];
                     <ul class="nav navbar-nav">
 
                         <li><a href="inicio.php">PRODUTOS</a></li>
+                        <li><a href="unidades.php">UNIDADES</a></li>
 
                         <li><a href="solicitados.php">SOLICITADOS</a></li>
 

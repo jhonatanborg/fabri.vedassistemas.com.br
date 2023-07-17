@@ -108,9 +108,8 @@ $ANO = date ("Y");
                 <ul class="nav navbar-nav">
 
                     <li><a href="inicio.php">PRODUTOS</a></li>
-
+                    <li><a href="unidades.php">UNIDADES</a></li>
                     <li class="active"><a href="solicitados.php">SOLICITADOS</a></li>
-
                     <li><a href="usuarios.php">USUÁRIOS</a></li>
 
                     <li><a href="solicitar-servicos.php">SOLICITAR SERVIÇO</a></li>

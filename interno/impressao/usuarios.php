@@ -116,6 +116,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <ul class="nav navbar-nav">
 
                     <li><a href="inicio.php">PRODUTOS</a></li>
+                    <li><a href="unidades.php">UNIDADES</a></li>
 
                     <li><a href="solicitados.php">SOLICITADOS</a></li>
 
@@ -327,15 +328,14 @@ while ($row = mysqli_fetch_assoc($result)) {
 
                             <option selected>Selecionar Nivel</option>
 
+
                             <option value="1">Administrador</option>
 
                             <option value="2">Solicitante</option>
 
-                            <option value="3">Coordenador</option>
+                            <option value="3">Autoridade</option>
 
-                            <option value="4">Colaborador</option>
-
-                            <option value="5">Técnico</option>
+                            <option value="4">Empresa</option>
 
 
                         </select>

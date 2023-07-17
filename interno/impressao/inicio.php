@@ -108,7 +108,7 @@ $produtos_json = json_encode($produtos);
                         <li><a href="unidades.php">UNIDADES</a></li>
 
                         <li><a href="solicitados.php">SOLICITADOS</a></li>
-                        <li><a href="unidades.php">SOLICITADOS</a></li>
+                        <li><a href="usuarios.php">USUÁRIOS</a></li>
 
                         <li><a href="solicitar-servicos.php">SOLICITAR SERVIÇO</a></li>
 

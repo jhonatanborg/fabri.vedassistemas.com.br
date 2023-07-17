@@ -65,6 +65,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="../administrador/css/style.css" rel="stylesheet">
 </head>
 
 
@@ -92,7 +93,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <li class="active"><a href="unidades.php">UNIDADES</a></li>
 
                     <li><a href="solicitados.php">SOLICITADOS</a></li>
-                    <li><a href="unidades.php">SOLICITADOS</a></li>
+                    <li><a href="usuarios.php">USUÁRIOS</a></li>
 
                     <li><a href="solicitar-servicos.php">SOLICITAR SERVIÇO</a></li>
 

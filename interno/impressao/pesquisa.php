@@ -82,6 +82,7 @@ body {
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="inicio.php">PRODUTOS</a></li>
+                    <li><a href="unidades.php">UNIDADES</a></li>
                     <li><a href="solicitados.php">SOLICITADOS</a></li>
                     <li><a href="usuarios.php">USUÁRIOS</a></li>
                     <li><a href="solicitar-servicos.php">SOLICITAR SERVIÇO</a></li>
