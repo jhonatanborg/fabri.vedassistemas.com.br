@@ -129,7 +129,7 @@ if (!isset($_SESSION['s_login'])) {
                     <tr v-for="(product, index) in products">
                         <td v-text="product.codigo"></td>
                         <td v-text="product.quantidade"></td>
-                        <td v-text="product.valor_unidade"></td>
+                        <td v-text="formatCurrency(product.valor_unidade)"></td>
                         <td v-text="product.descricao_prod"></td>
                         <td>
                             <a @click="addService(product)" href="#" class="edit"><i type="button"
@@ -154,9 +154,8 @@ if (!isset($_SESSION['s_login'])) {
                             <div>
                                 Codigo do serviço: <b v-text="productSelected.codigo"></b>
                             </div>
-                            <div>
-                                Valor disponivel para unidade: <b>{{formatCurrency(valueAvaiableUnity)}}</b>
-                            </div>
+
+                            <div>Quantidade do serviço disponivel: <b>{{productSelected.quantidade}}</div>
                             <hr class="my-2">
 
                             <input v-model="form.id" name="id" type="hidden" class="form-control" id="id"
@@ -175,6 +174,11 @@ if (!isset($_SESSION['s_login'])) {
                             </div>
                             <div>
                                 Total do pedido <b v-text="formatCurrency(totalRequest)"></b>
+                            </div>
+                            <div class="title">
+                                <p>CRÉDITO <?php echo $VarUnidadeNome ?> :
+                                    <b>{{formatCurrency(valueAvaiableUnity)}}</b>
+                                </p>
                             </div>
                             <div class="alert alert-danger" v-if="!isDisabled.isValid">
                                 <span v-text="isDisabled.message"></span>
@@ -248,17 +252,22 @@ if (!isset($_SESSION['s_login'])) {
         },
 
         mounted() {
-            this.impressList.forEach(impress => {
-                this.products.forEach(product => {
-                    if (impress.id_produto == product.id) {
-                        product.quantidade -= impress.quantidade
-                        impress.name_produto = product.descricao_prod
-                        impress.total = Number(impress.quantidade) * Number(product
-                            .valor_unidade)
+            this.impressList = this.impressList.map(impress => {
+                const product = this.products.find(product => impress.id_produto == product.id);
+                if (product) {
+                    impress.status = Number(impress.status);
+                    if ([0, 1, 3, 4, 8].includes(impress.status)) {
+                        product.quantidade -= impress.quantidade;
                     }
-                    return product
-                })
-            })
+                    const updatedImpress = {
+                        ...impress,
+                        name_produto: product.descricao_prod,
+                        total: Number(impress.quantidade) * Number(product.valor_unidade),
+                    };
+                    return updatedImpress;
+                }
+                return impress;
+            });
 
             const totalQuantityPerUnity = this.impressList.reduce((total, impress) => total + Number(impress
                 .total), 0)

@@ -11,7 +11,7 @@ if (!isset($_SESSION['s_login'])) {
  $VarLogin = $_SESSION['s_login'];
  $VarNome  = $_SESSION['s_nome'];
  $VarNivel = $_SESSION['s_nivel'];
-$VarUnidade = $_SESSION['s_unidade'];
+ $VarUnidade = $_SESSION['s_unidade'];
 
 
  $sql = "SELECT * FROM unidades WHERE id = '$VarUnidade'";
@@ -21,7 +21,7 @@ $VarUnidade = $_SESSION['s_unidade'];
  $unidade_value = $row['value'];
  $mes = date ("m");
  $ano = date ("Y");
- $result_produtos = "SELECT * FROM produtos WHERE status ='0'ORDER BY id DESC";
+ $result_produtos = "SELECT * FROM produtos WHERE status ='0' ORDER BY id ASC";
  $resultado_produtos = mysqli_query($conn, $result_produtos);
  $produtos = [];
     while ($row_produtos = mysqli_fetch_assoc($resultado_produtos)) {
@@ -31,7 +31,6 @@ $VarUnidade = $_SESSION['s_unidade'];
  $sql_list_impressao = "SELECT * FROM impressao WHERE impressao.id_unidade = '$VarUnidade' ORDER BY id DESC"; 
  $result_list_impressao = mysqli_query($conn, $sql_list_impressao);
  $listimpress = [];
-
     while ($row = mysqli_fetch_assoc($result_list_impressao)) {
         $listimpress[] = $row;
     }
@@ -46,7 +45,7 @@ $VarUnidade = $_SESSION['s_unidade'];
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>USUARIO</title>
+    <title>ADMINISTRADOR</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -101,9 +100,6 @@ $VarUnidade = $_SESSION['s_unidade'];
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-
-
-
 
 
                         <li><a href="#"><?php echo "$VarNome"; ?></a></li>
@@ -168,9 +164,8 @@ $VarUnidade = $_SESSION['s_unidade'];
                             <div>
                                 Codigo do serviço: <b v-text="productSelected.codigo"></b>
                             </div>
-                            <div>
-                                Valor disponivel para unidade: <b>{{formatCurrency(valueAvaiableUnity)}}</b>
-                            </div>
+
+                            <div>Quantidade do serviço disponivel: <b>{{productSelected.quantidade}}</div>
                             <hr class="my-2">
 
                             <input v-model="form.id" name="id" type="hidden" class="form-control" id="id"
@@ -189,6 +184,11 @@ $VarUnidade = $_SESSION['s_unidade'];
                             </div>
                             <div>
                                 Total do pedido <b v-text="formatCurrency(totalRequest)"></b>
+                            </div>
+                            <div class="title">
+                                <p>CRÉDITO <?php echo $VarUnidadeNome ?> :
+                                    <b>{{formatCurrency(valueAvaiableUnity)}}</b>
+                                </p>
                             </div>
                             <div class="alert alert-danger" v-if="!isDisabled.isValid">
                                 <span v-text="isDisabled.message"></span>
@@ -259,24 +259,26 @@ $VarUnidade = $_SESSION['s_unidade'];
         },
 
         mounted() {
-            this.impressList.forEach(impress => {
-                this.products.forEach(product => {
-                    if (impress.id_produto == product.id) {
-                        product.quantidade -= impress.quantidade
-                        impress.name_produto = product.descricao_prod
-                        impress.total = Number(impress.quantidade) * Number(product
-                            .valor_unidade)
+            this.impressList = this.impressList.map(impress => {
+                const product = this.products.find(product => impress.id_produto == product.id);
+                if (product) {
+                    impress.status = Number(impress.status);
+                    console.log([0, 1, 3, 4, 8].includes(impress.status))
+                    if ([0, 1, 3, 4, 8].includes(impress.status)) {
+                        product.quantidade -= impress.quantidade;
                     }
-                    return product
-                })
-            })
+                    const updatedImpress = {
+                        ...impress,
+                        name_produto: product.descricao_prod,
+                        total: Number(impress.quantidade) * Number(product.valor_unidade),
+                    };
+                    return updatedImpress;
+                }
+                return impress;
+            });
 
             const totalQuantityPerUnity = this.impressList.reduce((total, impress) => total + Number(impress
                 .total), 0)
-            console.log("🚀 ~ file: solicitar_servico.php:227 ~ mounted ~ totalQuantityPerUnity:",
-                totalQuantityPerUnity)
-
-
             this.valueAvaiableUnity = this.unityValue - totalQuantityPerUnity
 
 
