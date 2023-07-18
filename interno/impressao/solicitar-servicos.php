@@ -276,9 +276,12 @@ if (!isset($_SESSION['s_login'])) {
                 return impress;
             });
             const listValueMyUnity = this.impressList.filter(impress => impress.id_unidade == this.unityId)
-            const totalQuantityPerUnity = listValueMyUnity.reduce((total, impress) => total + Number(
-                impress
-                .total), 0)
+            const totalQuantityPerUnity = listValueMyUnity.reduce((total, impress) => {
+                if ([0, 1, 3, 4, 8].includes(impress.status)) {
+                    return total + Number(impress.total);
+                }
+                return total;
+            }, 0);
             this.valueAvaiableUnity = this.unityValue - totalQuantityPerUnity
             // timeout reload page 5s
             setTimeout(function() {
