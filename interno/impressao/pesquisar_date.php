@@ -109,6 +109,7 @@ if ($unidade !== "all") {
 
 $result_impres = "SELECT
   impressao.id_unidade,
+  impressao.id,
   SUM(impressao.quantidade) AS totquantidade,
   produtos.valor_unidade AS valortotal,
   SUM(impressao.quantidade * produtos.valor_unidade) AS valortotal,
@@ -118,18 +119,18 @@ $result_impres = "SELECT
   produtos.codigo,
   impressao.id_professor,
   usuarios.nome AS nome_professor,
-  unidades.name as unidade_nome
+  (SELECT name FROM unidades WHERE id = impressao.id_unidade) AS unidade_nome
 FROM impressao
 JOIN produtos ON impressao.id_produto = produtos.id
 JOIN usuarios ON impressao.id_professor = usuarios.id
-JOIN unidades ON usuarios.unidade = unidades.id
-WHERE  EXTRACT(MONTH FROM impressao.data) = '$mes'
+WHERE EXTRACT(MONTH FROM impressao.data) = '$mes'
   AND EXTRACT(YEAR FROM impressao.data) = '$ano'
   $unidadeCondition
-  $usuarioCondition
   $statusCondition
+    $usuarioCondition
 GROUP BY impressao.id_unidade, impressao.id_produto, produtos.descricao_prod, produtos.valor_unidade, produtos.codigo, impressao.id_professor, usuarios.nome
-ORDER BY impressao.id_unidade LIMIT 0,100
+ORDER BY impressao.id_unidade
+LIMIT 0, 100
 ";
 
 $resultado_impres = mysqli_query($conn, $result_impres);
