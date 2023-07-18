@@ -263,7 +263,6 @@ if (!isset($_SESSION['s_login'])) {
                 const product = this.products.find(product => impress.id_produto == product.id);
                 if (product) {
                     impress.status = Number(impress.status);
-                    console.log([0, 1, 3, 4, 8].includes(impress.status))
                     if ([0, 1, 3, 4, 8].includes(impress.status)) {
                         product.quantidade -= impress.quantidade;
                     }
@@ -276,8 +275,9 @@ if (!isset($_SESSION['s_login'])) {
                 }
                 return impress;
             });
-
-            const totalQuantityPerUnity = this.impressList.reduce((total, impress) => total + Number(impress
+            const listValueMyUnity = this.impressList.filter(impress => impress.id_unidade == this.unityId)
+            const totalQuantityPerUnity = listValueMyUnity.reduce((total, impress) => total + Number(
+                impress
                 .total), 0)
             this.valueAvaiableUnity = this.unityValue - totalQuantityPerUnity
             // timeout reload page 5s
