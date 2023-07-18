@@ -279,7 +279,7 @@ if (!isset($_SESSION['s_login'])) {
 
             setTimeout(function() {
                 window.location.reload(1);
-            }, 20000);
+            }, 30000);
         },
         methods: {
             formatCurrency(value) {

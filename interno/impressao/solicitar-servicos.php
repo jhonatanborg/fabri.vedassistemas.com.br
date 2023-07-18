@@ -283,7 +283,7 @@ if (!isset($_SESSION['s_login'])) {
             // timeout reload page 5s
             setTimeout(function() {
                 window.location.reload(1);
-            }, 20000);
+            }, 30000);
 
 
         },
