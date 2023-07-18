@@ -149,83 +149,49 @@ function formatCurrency($value){
             <thead>
 
                 <tr>
-
-                    <th style="width: 140px">Data Inicio</th>
-
-                    <th>Código</th>
-
+                    <th style="width: 40px;">#ID</th>
+                    <th style="width: 100px">Data Inicio</th>
+                    <th style="width: 40px">Código</th>
                     <th>Solicitante</th>
-
                     <th>Quantidade</th>
-
-
                     <th>Valor unidade</th>
-
                     <th>Serviço</th>
                     <th>Valor total</th>
-
                     <th>Atualização</th>
-
                     <th>Status</th>
-
                     <th>Ação</th>
-
                 </tr>
-
             </thead>
-
             <tbody>
-
                 <?php
 
 
-    $result_impres= "SELECT impressao.id,impressao.descricao,
-
-impressao.quantidade,impressao.status,
-
-
-
-produtos.quantidade-
-
-(select coalesce(sum(impressao2.quantidade),0) from impressao impressao2 
-
-
-    where (impressao2.status=1 or
-
-impressao2.status=3 or impressao2.status=4) and extract(month FROM impressao2.data)='$MES'
-
-and extract(year FROM impressao2.data)=' $ANO' and impressao2.id_produto=impressao.id_produto)
-
-
-
-as disponivel,
-
- SUM(impressao.quantidade) AS totquantidade,
-  produtos.valor_unidade AS valortotal,
-  SUM(impressao.quantidade * produtos.valor_unidade) AS valortotal,
-
-impressao.id_produto,impressao.data_inicio,produtos.descricao_prod, produtos.codigo, produtos.valor_unidade as valor_unidade,
-case when impressao.status=0 then 'AGUARDANDO'
-
-when impressao.status=1 then 'CONFIRMADO'
-
-when impressao.status=2 then 'RECUSADO'
-
-when impressao.status=3 then 'EXECUTANDO'
-
-when impressao.status=4 then 'CONCLUÍDO' end as Status,
-
-impressao.data, impressao.id_professor, usuarios.nome as Solicitante, usuarios2.nome as Executor FROM impressao
-
-left join produtos on (produtos.id=impressao.id_produto)
-
-left join usuarios on (impressao.id_professor = usuarios.id)
-
-left join usuarios usuarios2 on (impressao.status = usuarios2.id)
-
-WHERE  impressao.status=1 OR impressao.status = 3
-
-ORDER BY 1 DESC";
+    $result_impres= "SELECT 
+  impressao.id,
+  impressao.descricao,
+  impressao.quantidade,
+  impressao.status,
+  impressao.id_produto,
+  impressao.data_inicio,
+  produtos.descricao_prod,
+  produtos.codigo,
+  produtos.valor_unidade AS valor_unidade,
+  CASE impressao.status
+    WHEN 0 THEN 'AGUARDANDO'
+    WHEN 1 THEN 'AUTORIZADO'
+    WHEN 2 THEN 'RECUSADO'
+    WHEN 3 THEN 'EXECUTANDO'
+    WHEN 4 THEN 'CONCLUÍDO'
+  END AS Status,
+  impressao.data,
+  impressao.id_professor,
+  usuarios.nome AS Solicitante,
+  usuarios2.nome AS Executor
+FROM impressao
+LEFT JOIN produtos ON produtos.id = impressao.id_produto
+LEFT JOIN usuarios ON impressao.id_professor = usuarios.id
+LEFT JOIN usuarios usuarios2 ON impressao.status = usuarios2.id
+WHERE impressao.status = 1 OR impressao.status = 3";
 
     $resultado_impres = mysqli_query($conn, $result_impres);
     
@@ -239,6 +205,7 @@ ORDER BY 1 DESC";
                 <tr>
 
 
+                    <td><?php echo $rows_impres['id']; ?></td>
                     <td><?php echo $rows_impres['data_inicio']; ?></td>
                     <td><?php echo $rows_impres['codigo']; ?></td>
 
@@ -250,7 +217,7 @@ ORDER BY 1 DESC";
                     <td><?php echo formatCurrency($rows_impres['valor_unidade']); ?></td>
 
                     <td><?php echo $rows_impres['descricao_prod']; ?></td>
-                    <td><?php echo formatCurrency($rows_impres['valortotal']); ?></td>
+                    <td><?php echo formatCurrency($rows_impres['valor_unidade'] * $rows_impres['quantidade']); ?></td>
 
                     <td><?php echo $rows_impres['data']; ?></td>
 

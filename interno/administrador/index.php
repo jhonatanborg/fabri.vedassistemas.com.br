@@ -72,9 +72,7 @@ if (isset($_POST['filtrar'])) {
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../administrador/css/style.css">
     <style>
 
@@ -83,6 +81,48 @@ if (isset($_POST['filtrar'])) {
 
 <body>
     <div id="app">
+        <div class="modal fade in" :class="{'d-block': isModalOpen }">
+            <div class="modal-dialog" v-if="impressSelected">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Confirmação de recebimento</h4>
+                        <button type="button" class="close" @click="closeModal" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Tem certeza que deseja confirmar que o serviço código <b> #{{impressSelected}} </b> foi
+                            entregue
+                            corretamente?</p>
+                        <p class="text-warning"><small>Esta ação não pode ser desfeita.</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" @click="closeModal" class="btn btn-default"
+                            data-dismiss="modal">Cancelar</button>
+                        <button @click="confirmReceived" type="button" class="btn btn-danger">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade in" :class="{'d-block': isModalOpenConfirm}">
+            <div class="modal-dialog" v-if="impressSelected">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Autorizar pedido</h4>
+                        <button type="button" @click="closeModalConfirm" class="close" data-dismiss="modal"
+                            aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Tem certeza que deseja autorizar o serviço código <b> #{{impressSelected}} </b>?</p>
+                        <p class="text-warning"><small>Esta ação não pode ser desfeita.</small></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" @click="closeModalConfirm" class="btn btn-default"
+                            data-dismiss="modal">Cancelar</button>
+                        <button @click="confirmRequest" type="button" class="btn btn-danger">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <nav class="navbar navbar-default">
 
             <div class="container-fluid">
@@ -233,46 +273,6 @@ if (isset($_POST['filtrar'])) {
             <p class="pull-left"> Copyright © Vedas Sistemas 2023. Todos os direitos reservados. </p>
         </div>
     </div>
-    <div class="modal fade in" :class="{'d-block': isModalOpen}">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Confirmação de recebimento</h4>
-                    <button type="button" class="close" @click="closeModal" data-dismiss="modal"
-                        aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Tem certeza que deseja confirmar que o serviço foi entregue corretamente?</p>
-                    <p class="text-warning"><small>Esta ação não pode ser desfeita.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" @click="closeModal" class="btn btn-default"
-                        data-dismiss="modal">Cancelar</button>
-                    <button @click="confirmReceived" type="button" class="btn btn-danger">Confirmar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade in" :class="{'d-block': isModalOpenConfirm}">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Autorizar pedido</h4>
-                    <button type="button" @click="closeModalConfirm" class="close" data-dismiss="modal"
-                        aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Tem certeza que deseja autorizar o serviço?</p>
-                    <p class="text-warning"><small>Esta ação não pode ser desfeita.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" @click="closeModalConfirm" class="btn btn-default"
-                        data-dismiss="modal">Cancelar</button>
-                    <button @click="confirmRequest" type="button" class="btn btn-danger">Confirmar</button>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
 
 </body>
@@ -291,6 +291,7 @@ var app = new Vue({
     },
     watch: {
         isModalOpen() {
+            console.log('passou aqui')
             if (this.isModalOpen) {
                 document.body.classList.add('modal-open');
                 // ADD ELEMENT <div class="modal-backdrop fade in"></div>
@@ -336,10 +337,13 @@ var app = new Vue({
         openModal(id) {
             this.isModalOpen = true;
             this.impressSelected = id;
+            console.log("imprs", this.impressSelected)
         },
         openModalConfirm(id) {
             this.isModalOpenConfirm = true;
             this.impressSelected = id;
+            console.log("imprs", this.impressSelected)
+
         },
         closeModal() {
             this.isModalOpen = false;
