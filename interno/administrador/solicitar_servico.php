@@ -21,7 +21,7 @@ if (!isset($_SESSION['s_login'])) {
  $unidade_value = $row['value'];
 
 
- $result_produtos = "SELECT * FROM produtos WHERE status ='0'ORDER BY id DESC";
+ $result_produtos = "SELECT * FROM produtos WHERE status ='0'ORDER BY id ASC";
  $resultado_produtos = mysqli_query($conn, $result_produtos);
  $produtos = [];
     while ($row_produtos = mysqli_fetch_assoc($resultado_produtos)) {

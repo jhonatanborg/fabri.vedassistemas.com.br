@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 function realizarConsulta($VarID, $mes, $ano) {
-include_once("../conexao_bd.php");
+include("../conexao_bd.php");
 
   
 $sql2= "SELECT 
@@ -52,5 +52,14 @@ WHERE i.status IN (0, 1, 2, 3, 4, 5, 8)
 
   // Retornar os resultados da consulta
   return $rows;
+}
+function getUnidade() {
+include("../conexao_bd.php");
+ $VarUnidade = $_SESSION['s_unidade'];
+ $sql = "SELECT * FROM unidades WHERE id = '$VarUnidade'";
+ $result = mysqli_query($conn, $sql);
+ $row = mysqli_fetch_assoc($result);
+ $VarUnidadeNome = $row['name'];
+ return $VarUnidadeNome;
 }
 ?>
