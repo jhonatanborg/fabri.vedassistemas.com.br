@@ -285,6 +285,7 @@ $total = 0;
                 <tr>
 
 
+                    <th>#ID</th>
                     <th>Unidade</th>
                     <th>Solicitante</th>
 
@@ -315,6 +316,7 @@ $total = 0;
 
                 <tr style="font-size: 12px">
 
+                    <td><?php echo $rows_impres['id']; ?></td>
 
                     <td><?php echo $rows_impres['unidade_nome']; ?></td>
                     <td><?php echo $rows_impres['nome_professor']; ?></td>
