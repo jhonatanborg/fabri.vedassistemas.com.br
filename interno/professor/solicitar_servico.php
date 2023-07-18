@@ -271,7 +271,6 @@ if (!isset($_SESSION['s_login'])) {
             },
             addService(product) {
                 this.productSelected = {}
-                console.log("🚀 ~ file: solicitar_servico.php:255 ~ addService ~ product:", product)
                 this.productSelected = product
                 this.form.id = product.id
                 this.form.valor_unidade = product.valor_unidade
@@ -292,7 +291,6 @@ if (!isset($_SESSION['s_login'])) {
                     })
                     .then(response => response.json())
                     .then(resp => {
-                        console.log("🚀 ~ file: solicitar_servico.php:277 ~ saveForm ~ resp:", resp)
                         window.location.reload()
                     })
                     .catch(error => {
