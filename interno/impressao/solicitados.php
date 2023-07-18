@@ -106,46 +106,7 @@ if (isset($_POST['filtrar'])) {
                 </div>
             </div>
         </div>
-        <div class="modal fade in" :class="{'d-block': isModalOpenConfirm}">
-            <div class="modal-dialog" v-if="impressSelected">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Autorizar pedido</h4>
-                        <button type="button" @click="closeModalConfirm" class="close" data-dismiss="modal"
-                            aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Tem certeza que deseja autorizar o serviço código <b> #{{impressSelected}} </b>?</p>
-                        <p class="text-warning"><small>Esta ação não pode ser desfeita.</small></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" @click="closeModalConfirm" class="btn btn-default"
-                            data-dismiss="modal">Cancelar</button>
-                        <button @click="confirmRequest" type="button" class="btn btn-danger">Confirmar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade in" :class="{'d-block': isModalOpenNotRequest}">
-            <div class="modal-dialog" v-if="impressSelected">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Recusar pedido</h4>
-                        <button type="button" @click="closeModalNotRequest" class="close" data-dismiss="modal"
-                            aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Tem certeza que deseja recusar o serviço código <b> #{{impressSelected}} </b>?</p>
-                        <p class="text-warning"><small>Esta ação não pode ser desfeita.</small></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" @click="closeModalNotRequest" class="btn btn-default"
-                            data-dismiss="modal">Cancelar</button>
-                        <button @click="NotRequest" type="button" class="btn btn-danger">Confirmar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <nav class="navbar navbar-default">
 
             <div class="container-fluid">
@@ -282,21 +243,10 @@ if (isset($_POST['filtrar'])) {
                         </div>
                     </td>
                     <td>
-                        <div @click="openModal(item.id)" class="col-sm-4 cursor-pointer" v-if="item.status === '4'">
+                        <div @click="openModal(item.id)" class="col-sm-4 cursor-pointer"
+                            v-if="item.status === '4' && Number(item.id_professor) === id">
                             <span class="material-symbols-outlined  color-red">
                                 receipt_long
-                            </span>
-                        </div>
-                        <div @click="openModalConfirm(item.id)" class="col-sm-4 cursor-pointer"
-                            v-if="item.status === '0'">
-                            <span class="material-symbols-outlined  color-red">
-                                send
-                            </span>
-                        </div>
-                        <div @click="openModalNotRequest(item.id)" class="col-sm-4 cursor-pointer"
-                            v-if="item.status === '0'">
-                            <span class="material-symbols-outlined  color-red">
-                                close
                             </span>
                         </div>
                     </td>
@@ -324,9 +274,7 @@ var app = new Vue({
         filter: '',
         isModalOpen: false,
         impressSelected: null,
-        isModalOpenConfirm: false,
-        isModalOpenNotRequest: false,
-
+        id: <?php echo $VarID; ?>
     },
     watch: {
         isModalOpen() {
@@ -344,36 +292,8 @@ var app = new Vue({
 
             }
         },
-        isModalOpenConfirm() {
-            if (this.isModalOpenConfirm) {
-                document.body.classList.add('modal-open');
-                // ADD ELEMENT <div class="modal-backdrop fade in"></div>
-                let div = document.createElement('div');
-                div.classList.add('modal-backdrop', 'fade', 'in');
-                document.body.appendChild(div);
 
-            } else {
-                document.body.classList.remove('modal-open');
-                // REMOVE ELEMENT <div class="modal-backdrop fade in"></div>
-                document.body.removeChild(document.querySelector('.modal-backdrop'));
 
-            }
-        },
-        isModalOpenNotRequest() {
-            if (this.isModalOpenNotRequest) {
-                document.body.classList.add('modal-open');
-                // ADD ELEMENT <div class="modal-backdrop fade in"></div>
-                let div = document.createElement('div');
-                div.classList.add('modal-backdrop', 'fade', 'in');
-                document.body.appendChild(div);
-
-            } else {
-                document.body.classList.remove('modal-open');
-                // REMOVE ELEMENT <div class="modal-backdrop fade in"></div>
-                document.body.removeChild(document.querySelector('.modal-backdrop'));
-
-            }
-        },
     },
     computed: {
         listimpress() {
@@ -391,27 +311,12 @@ var app = new Vue({
             this.isModalOpen = true;
             this.impressSelected = id;
         },
-        openModalConfirm(id) {
-            this.isModalOpenConfirm = true;
-            this.impressSelected = id;
-        },
-        openModalNotRequest(id) {
-            this.isModalOpenNotRequest = true;
-            this.impressSelected = id;
 
-        },
         closeModal() {
             this.isModalOpen = false;
             this.impressSelected = null;
         },
-        closeModalConfirm() {
-            this.isModalOpenConfirm = false;
-            this.impressSelected = null;
-        },
-        closeModalNotRequest() {
-            this.isModalOpenNotRequest = false;
-            this.impressSelected = null;
-        },
+
 
         async confirmReceived() {
             let id = this.impressSelected;
@@ -435,50 +340,7 @@ var app = new Vue({
                     console.log(error);
                 });
         },
-        async confirmRequest() {
-            let id = this.impressSelected;
 
-            fetch('../models/form_status.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        id: id,
-                        status: 1,
-                    }),
-                })
-                .then(response => response.json())
-                .then(resp => {
-                    window.location.reload();
-                })
-                .catch(error => {
-                    // Tratamento de erro
-                    console.log(error);
-                });
-        },
-        async NotRequest() {
-            let id = this.impressSelected;
-
-            fetch('../models/form_status.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        id: id,
-                        status: 2,
-                    }),
-                })
-                .then(response => response.json())
-                .then(resp => {
-                    window.location.reload();
-                })
-                .catch(error => {
-                    // Tratamento de erro
-                    console.log(error);
-                });
-        },
     },
 });
 </script>
