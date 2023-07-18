@@ -231,6 +231,8 @@ WHERE impressao.status = 1 OR impressao.status = 3";
 
 
 
+                        <?php if($rows_impres['status'] == 1){ ?>
+
 
                         <a href="#" class="delete"><i type="button" class="fa fa-print" data-toggle="modal"
                                 title="Executando" data-target="#deleteEmployeeModal"
@@ -240,7 +242,9 @@ WHERE impressao.status = 1 OR impressao.status = 3";
                                 data-whateverquantidade="<?php echo $rows_impres['quantidade'];?>"
                                 data-whateverdescricao="<?php echo $rows_impres['descricao']; ?>"
                                 data-whateverdescricao_prod="<?php echo $rows_impres['descricao_prod']; ?>"></i></a>
+                        <?php }?>
 
+                        <?php if($rows_impres['status'] == 3){ ?>
                         <a href="#" class="send"><i class="fa fa-check" type="button" class="material-icons"
                                 data-toggle="modal" title="Concluir" data-target="#confirmar"
                                 data-whatever="<?php echo $rows_impres['id']; ?>"
@@ -253,7 +257,7 @@ WHERE impressao.status = 1 OR impressao.status = 3";
                             </i></a>
 
 
-
+                        <?php }?>
 
 
                     </td>
