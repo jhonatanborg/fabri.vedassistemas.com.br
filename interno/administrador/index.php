@@ -247,7 +247,7 @@ $unidade_name = getUnidade();
                     <th>Total</th>
                     <th>Atualização</th>
                     <th style="width: 140px;">Status</th>
-                    <th style="width: 140px;">Acão</th>
+                    <th style="width: 140px;">Ação</th>
                 </tr>
             </thead>
 
