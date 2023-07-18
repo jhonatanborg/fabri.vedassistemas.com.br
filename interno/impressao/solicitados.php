@@ -48,6 +48,7 @@ if (isset($_POST['filtrar'])) {
     $resultado = loadData();
     
 }
+ $unidade_name = getUnidade();
 ?>
 
 <!DOCTYPE html>
@@ -184,6 +185,13 @@ if (isset($_POST['filtrar'])) {
 
 
 
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+
+                    <li><a href="#"><?php echo "$VarNome"; ?></a></li>
+                    <li><a href="#"><?php echo "$unidade_name"; ?></a></li>
+                    <li><a href="../administrador/logout.php">SAIR</a></li>
                 </ul>
                 <!--/.nav-collapse -->
 
