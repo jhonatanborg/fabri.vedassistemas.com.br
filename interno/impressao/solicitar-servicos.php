@@ -28,7 +28,7 @@ if (!isset($_SESSION['s_login'])) {
         $produtos[] = $row_produtos;
     }
 
- $sql_list_impressao = "SELECT * FROM impressao WHERE impressao.id_unidade = '$VarUnidade' ORDER BY id DESC"; 
+ $sql_list_impressao = "SELECT * FROM impressao ORDER BY id DESC"; 
  $result_list_impressao = mysqli_query($conn, $sql_list_impressao);
  $listimpress = [];
     while ($row = mysqli_fetch_assoc($result_list_impressao)) {
@@ -280,6 +280,10 @@ if (!isset($_SESSION['s_login'])) {
             const totalQuantityPerUnity = this.impressList.reduce((total, impress) => total + Number(impress
                 .total), 0)
             this.valueAvaiableUnity = this.unityValue - totalQuantityPerUnity
+            // timeout reload page 5s
+            setTimeout(function() {
+                window.location.reload(1);
+            }, 10000);
 
 
         },

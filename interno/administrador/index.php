@@ -2,7 +2,6 @@
 
 require("./querys/consult.php");
 
-
 if (!isset($_SESSION)) session_start();
 
 if (!isset($_SESSION['s_login'])) {
@@ -10,8 +9,6 @@ if (!isset($_SESSION['s_login'])) {
   session_destroy();
 
   header("Location:logout.php"); exit;
-
-
 
 }
 
@@ -23,8 +20,6 @@ if (!isset($_SESSION['s_login'])) {
  $VarNome  = $_SESSION['s_nome'];
 
  $VarNivel = $_SESSION['s_nivel'];
-
- $VarUnidade = $_SESSION['s_unidade'];
 
 
  $mes = date ("m");
@@ -48,6 +43,7 @@ if (isset($_POST['filtrar'])) {
     $resultado = loadData();
     
 }
+$unidade_name = getUnidade();
 ?>
 
 <!DOCTYPE html>
@@ -159,11 +155,10 @@ if (isset($_POST['filtrar'])) {
 
                     <ul class="nav navbar-nav navbar-right">
 
+
                         <li><a href="#"><?php echo "$VarNome"; ?></a></li>
-
-
+                        <li><a href="#"><?php echo "$unidade_name"; ?></a></li>
                         <li><a href="../administrador/logout.php">SAIR</a></li>
-
                     </ul>
 
                 </div>

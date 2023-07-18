@@ -28,7 +28,7 @@ if (!isset($_SESSION['s_login'])) {
         $produtos[] = $row_produtos;
     }
 
- $sql_list_impressao = "SELECT * FROM impressao WHERE impressao.id_unidade = '$VarUnidade' ORDER BY id DESC"; 
+ $sql_list_impressao = "SELECT * FROM impressao ORDER BY id DESC"; 
  $result_list_impressao = mysqli_query($conn, $sql_list_impressao);
  $listimpress = [];
 
@@ -263,7 +263,9 @@ if (!isset($_SESSION['s_login'])) {
 
             this.valueAvaiableUnity = this.unityValue - totalQuantityPerUnity
 
-
+            setTimeout(function() {
+                window.location.reload(1);
+            }, 10000);
         },
         methods: {
             formatCurrency(value) {

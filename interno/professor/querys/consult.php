@@ -34,7 +34,6 @@ LEFT JOIN produtos p ON p.id = i.id_produto
 LEFT JOIN usuarios u ON i.id_professor = u.id
 LEFT JOIN usuarios u2 ON i.status = u2.id
 WHERE i.status IN (0, 1, 2, 3, 4, 5, 8)
-  AND u.id = '$VarID'
   AND EXTRACT(MONTH FROM i.data) = '$mes'
   AND EXTRACT(YEAR FROM i.data) = '$ano'
   ";

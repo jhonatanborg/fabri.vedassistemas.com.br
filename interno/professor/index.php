@@ -30,6 +30,10 @@ if (!isset($_SESSION['s_login'])) {
  $mes = date ("m");
 
  $ano = date ("Y");
+ $sql = "SELECT * FROM unidades WHERE id = '$VarUnidade'";
+ $result = mysqli_query($conn, $sql);
+ $row = mysqli_fetch_assoc($result);
+ $VarUnidadeNome = $row['name'];
  function loadData(){
   global $VarID, $mes, $ano;
   $resultado = realizarConsulta($VarID, $mes, $ano);
@@ -119,11 +123,10 @@ if (isset($_POST['filtrar'])) {
 
                     <ul class="nav navbar-nav navbar-right">
 
+
                         <li><a href="#"><?php echo "$VarNome"; ?></a></li>
-
-
+                        <li><a href="#"><?php echo "$VarUnidadeNome"; ?></a></li>
                         <li><a href="../administrador/logout.php">SAIR</a></li>
-
                     </ul>
 
                 </div>
