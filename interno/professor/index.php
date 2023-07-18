@@ -307,7 +307,7 @@ var app = new Vue({
                     },
                     body: JSON.stringify({
                         id: id,
-                        status: 5,
+                        status: 8,
                     }),
                 })
                 .then(response => response.json())
