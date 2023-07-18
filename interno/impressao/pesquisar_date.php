@@ -127,7 +127,7 @@ WHERE EXTRACT(MONTH FROM impressao.data) = '$mes'
   AND EXTRACT(YEAR FROM impressao.data) = '$ano'
   $unidadeCondition
   $statusCondition
-    $usuarioCondition
+  $usuarioCondition
 GROUP BY impressao.id_unidade, impressao.id_produto, produtos.descricao_prod, produtos.valor_unidade, produtos.codigo, impressao.id_professor, usuarios.nome
 ORDER BY impressao.id_unidade
 LIMIT 0, 100

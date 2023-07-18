@@ -135,9 +135,8 @@ body {
                         <div class="input-group">
                             <label for="">Status</label>
                             <select class="form-control" name="status">
-                                <option value="all">TODOS</option>
-                                <option value="4">Concluido</option>
                                 <option value="8">Recebidos</option>
+                                <option value="4">Concluidos</option>
                             </select>
                         </div>
                     </div>
