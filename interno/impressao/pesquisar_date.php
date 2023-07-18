@@ -22,7 +22,7 @@ $VarNome  = $_SESSION['s_nome'];
 
 $VarNivel = $_SESSION['s_nivel'];
 
-
+$statusName = "Geral";
 
 
 
@@ -82,12 +82,18 @@ $month = $mes; {
 }
 
 if ($user !== "all") {
+  
   $usuarioCondition = "AND impressao.id_professor = '$user'";
 } else {
   $usuarioCondition = "";
 }
 
 if ($status !== "all") {
+    if ($status == "4") {
+        $statusName = "Concluído";
+    } else if ($status == "8") {
+        $statusName = "Recebido";
+    } 
   $statusCondition = "AND impressao.status = '$status'";
 } else {
   $statusCondition = "";
@@ -245,7 +251,7 @@ $total = 0;
 
                 <div class="col-sm-6">
 
-                    <h2>Serviços Concluidos</b></h2>
+                    <h2>Serviços <?php echo  $statusName ?></b></h2>
                     <span><?php echo "Relátorio de {$month} {$ano}" ?></span>
 
                 </div>
@@ -349,217 +355,6 @@ $total = 0;
 
     </div>
 
-    <!-- Edit Modal HTML -->
-
-    <div id="exampleModal" class="modal fade">
-
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-
-                <div class="modal-header">
-
-                    <h4 class="modal-title"></h4>
-
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-                </div>
-
-                <div class="modal-body">
-
-
-
-                    <form method="POST" action="update_envio.php" enctype="multipart/form-data">
-
-
-
-                        <div class="form-group">
-
-                            <label>QUANTIDADE</label>
-
-                            <input type="text" class="form-control" required name="quantidade" id="quantidade"
-                                onkeyup="somenteNumeros(this);">
-
-                        </div>
-
-                        <div class="form-group">
-
-                            <label>DESCRIÇÃO</label>
-
-                            <input type="text" class="form-control" required name="descricao" id="descricao">
-
-                        </div>
-
-
-
-
-
-                        <input name="id" type="hidden" class="form-control" id="id" value="">
-
-                        <select name="descricao_prod" class="browser-default custom-select my-3" id="">
-
-                            <option selected>Tipo de impressão</option>
-
-
-
-                            <?php
-
-						$result_produtos = "SELECT * FROM produtos WHERE status = '0'";
-
-						$resultado_produtos = mysqli_query($conn, $result_produtos);
-
-						while($row_produtos = mysqli_fetch_assoc($resultado_produtos)){ ?>
-
-                            <option value="<?php echo $row_produtos['descricao_prod']; ?>">
-
-                                <?php echo $row_produtos['descricao_prod'];?></option> <?php
-
-							}
-
-							?>
-
-                        </select>
-
-                        <div class="modal-footer">
-
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-
-                            <input type="submit" class="btn btn-info" value="Salvar">
-
-                    </form>
-
-                </div>
-
-
-
-            </div>
-
-
-
-        </div>
-
-    </div>
-
-    </div>
-
-    </div>
-
-
-
-
-
-
-
-    <div id="deleteEmployeeModal" class="modal fade">
-
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-
-                <form method="POST" action="recusar.php">
-
-                    <div class="modal-header">
-
-                        <h4 class="modal-title"></h4>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-                    </div>
-
-                    <div class="modal-body">
-
-                        <p>Tem certeza que deseja deletar o solicitação selecionada?</p>
-
-                        <input type="hidden" class="form-control" id="id" name="id">
-
-                        <input name="descricao_prod" type="hidden" class="form-control" id="descricao_prod">
-
-                        <input name="Solicitante" type="hidden" class="form-control" id="Solicitante">
-
-                        <input name="codigo" type="hidden" class="form-control" id="codigo">
-
-
-
-                        <p class="text-warning">
-
-                            <small>Fazendo isso você recusará a solicitação permanentemente</small>
-                        </p>
-
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-
-                        <input type="submit" class="btn btn-danger" value="Recusar">
-
-                    </div>
-
-                </form>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <div id="confirmar" class="modal fade">
-
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-
-                <form method="POST" action="confirmar.php">
-
-                    <div class="modal-header">
-
-                        <h4 class="modal-title"></h4>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-                    </div>
-
-                    <div class="modal-body">
-
-                        <p>Confirmar solicitação?</p>
-
-                        <input type="hidden" class="form-control" id="id" name="id">
-
-                        <input name="descricao_prod" type="hidden" class="form-control" id="descricao_prod">
-
-                        <input name="Solicitante" type="hidden" class="form-control" id="Solicitante">
-
-                        <input name="codigo" type="hidden" class="form-control" id="codigo">
-
-
-
-
-
-                        <p class="text-warning">
-
-                            <small>Ao confirmar essa solitação, o serviço será encaminhado direto para a Fabri Gráfica
-                                Digital</small>
-                        </p>
-
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-
-                        <input type="submit" class="btn btn-success" value="Confirmar">
-
-                    </div>
-
-                </form>
-
-            </div>
-
-        </div>
-
-    </div>
 
     <footer>
 
@@ -579,132 +374,7 @@ $total = 0;
 
     </footer>
 
-    <script type="text/javascript">
-    $('#exampleModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
 
-        var recipient = button.data('whatever') // Extract
-
-        var recipientnome = button.data('whatevernome')
-
-        var recipientcodigo = button.data('whatevercodigo')
-
-        var recipientquantidade = button.data('whateverquantidade')
-
-        var recipientdescricao = button.data('whateverdescricao')
-
-        var recipientdescricao_prod = button.data('whateverdescricao_prod')
-
-
-
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-
-        var modal = $(this)
-
-        modal.find('.modal-title').text('Solicitação de:' + recipientnome)
-
-        modal.find('#id').val(recipient)
-
-        modal.find('#recipient-codigo').val(recipientcodigo)
-
-        modal.find('#quantidade').val(recipientquantidade)
-
-        modal.find('#descricao').val(recipientdescricao)
-
-        modal.find('#descricao_prod').val(recipientdescricao_prod)
-
-
-
-    })
-    </script>
-
-    <script type="text/javascript">
-    $('#deleteEmployeeModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-
-        var recipient = button.data('whatever') // Extract
-
-        var recipientnome = button.data('whatevernome')
-
-        var recipientquantidade = button.data('whateverquantidade')
-
-        var recipientdescricao = button.data('whateverdescricao')
-
-        var recipientdescricao_prod = button.data('whateverdescricao_prod')
-
-
-
-
-
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-
-        var modal = $(this)
-
-        modal.find('.modal-title').text('Solicitação de:' + recipientnome)
-
-        modal.find('#id').val(recipient)
-
-        modal.find('#recipient-codigo').val(recipientcodigo)
-
-        modal.find('#quantidade').val(recipientquantidade)
-
-        modal.find('#descricao').val(recipientdescricao)
-
-        modal.find('#descricao_prod').val(recipientdescricao)
-
-
-
-    })
-    </script>
-
-    <script type="text/javascript">
-    $('#confirmar').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-
-        var recipient = button.data('whatever') // Extract
-
-        var recipientnome = button.data('whatevernome')
-
-        var recipientquantidade = button.data('whateverquantidade')
-
-        var recipientdescricao = button.data('whateverdescricao')
-
-        var recipientdescricao_prod = button.data('whateverdescricao_prod')
-
-        var recipientdisponivel = button.data('whateverdisponivel')
-
-
-
-
-
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-
-        var modal = $(this)
-
-        modal.find('.modal-title').text('Confirmar solicitação de:' + recipientnome)
-
-        modal.find('#id').val(recipient)
-
-        modal.find('#recipient-codigo').val(recipientcodigo)
-
-        modal.find('#quantidade').val(recipientquantidade)
-
-        modal.find('#descricao').val(recipientdescricao)
-
-        modal.find('#descricao_prod').val(recipientdescricao)
-
-        modal.find('#disponivel').val(recipientdisponivel)
-
-
-
-    })
-    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
