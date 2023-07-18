@@ -135,7 +135,6 @@ LIMIT 0, 100
 
 $resultado_impres = mysqli_query($conn, $result_impres);
 $total = 0;
-echo json_encode($result_impres);
 
 ?>
 
