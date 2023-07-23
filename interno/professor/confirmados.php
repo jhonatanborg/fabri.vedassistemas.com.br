@@ -42,41 +42,40 @@ if (!isset($_SESSION['s_login'])) {
 
 <head>
 
-<meta charset="utf-8">
+    <meta charset="utf-8">
 
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>USUARIO</title>
+    <title>USUARIO</title>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<style type="text/css">
-
+    <style type="text/css">
     body {
 
         color: #566787;
 
-    background: #f5f5f5;
+        background: #f5f5f5;
 
-    font-family: 'Varela Round', sans-serif;
+        font-family: 'Varela Round', sans-serif;
 
-    font-size: 13px;
+        font-size: 13px;
 
-  }
+    }
 
-  .table-wrapper {
+    .table-wrapper {
 
         background: #fff;
 
@@ -84,115 +83,116 @@ if (!isset($_SESSION['s_login'])) {
 
         margin: 30px 0;
 
-    border-radius: 3px;
+        border-radius: 3px;
 
-        box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 
     }
 
-  .table-title {        
+    .table-title {
 
-    padding-bottom: 15px;
+        padding-bottom: 15px;
 
-    background: #435d7d;
+        background: #435d7d;
 
-    color: #fff;
+        color: #fff;
 
-    padding: 16px 30px;
+        padding: 16px 30px;
 
-    margin: -20px -25px 10px;
+        margin: -20px -25px 10px;
 
-    border-radius: 3px 3px 0 0;
+        border-radius: 3px 3px 0 0;
 
     }
 
     .table-title h2 {
 
-    margin: 5px 0 0;
+        margin: 5px 0 0;
 
-    font-size: 24px;
-
-  }
-
-  .table-title .btn-group {
-
-    float: right;
-
-  }
-
-  .table-title .btn {
-
-    color: #fff;
-
-    float: right;
-
-    font-size: 13px;
-
-    border: none;
-
-    min-width: 50px;
-
-    border-radius: 2px;
-
-    border: none;
-
-    outline: none !important;
-
-    margin-left: 10px;
-
-  }
-
-  .table-title .btn i {
-
-    float: left;
-
-    font-size: 21px;
-
-    margin-right: 5px;
-
-  }
-
-  .table-title .btn span {
-
-    float: left;
-
-    margin-top: 2px;
-
-  }
-
-    table.table tr th, table.table tr td {
-
-        border-color: #e9e9e9;
-
-    padding: 12px 15px;
-
-    vertical-align: middle;
+        font-size: 24px;
 
     }
 
-  table.table tr th:first-child {
+    .table-title .btn-group {
 
-    width: 60px;
+        float: right;
 
-  }
+    }
 
-  table.table tr th:last-child {
+    .table-title .btn {
 
-    width: 100px;
+        color: #fff;
 
-  }
+        float: right;
+
+        font-size: 13px;
+
+        border: none;
+
+        min-width: 50px;
+
+        border-radius: 2px;
+
+        border: none;
+
+        outline: none !important;
+
+        margin-left: 10px;
+
+    }
+
+    .table-title .btn i {
+
+        float: left;
+
+        font-size: 21px;
+
+        margin-right: 5px;
+
+    }
+
+    .table-title .btn span {
+
+        float: left;
+
+        margin-top: 2px;
+
+    }
+
+    table.table tr th,
+    table.table tr td {
+
+        border-color: #e9e9e9;
+
+        padding: 12px 15px;
+
+        vertical-align: middle;
+
+    }
+
+    table.table tr th:first-child {
+
+        width: 60px;
+
+    }
+
+    table.table tr th:last-child {
+
+        width: 100px;
+
+    }
 
     table.table-striped tbody tr:nth-of-type(odd) {
 
-      background-color: #fcfcfc;
+        background-color: #fcfcfc;
 
-  }
+    }
 
-  table.table-striped.table-hover tbody tr:hover {
+    table.table-striped.table-hover tbody tr:hover {
 
-    background: #f5f5f5;
+        background: #f5f5f5;
 
-  }
+    }
 
     table.table th i {
 
@@ -202,39 +202,39 @@ if (!isset($_SESSION['s_login'])) {
 
         cursor: pointer;
 
-    } 
+    }
 
     table.table td:last-child i {
 
-    opacity: 0.9;
+        opacity: 0.9;
 
-    font-size: 22px;
+        font-size: 22px;
 
         margin: 0 5px;
 
     }
 
-  table.table td a {
+    table.table td a {
 
-    font-weight: bold;
+        font-weight: bold;
 
-    color: #566787;
+        color: #566787;
 
-    display: inline-block;
+        display: inline-block;
 
-    text-decoration: none;
+        text-decoration: none;
 
-    outline: none !important;
+        outline: none !important;
 
-  }
+    }
 
-  table.table td a:hover {
+    table.table td a:hover {
 
-    color: #2196F3;
+        color: #2196F3;
 
-  }
+    }
 
-  table.table td a.edit {
+    table.table td a.edit {
 
         color: #FFC107;
 
@@ -252,15 +252,15 @@ if (!isset($_SESSION['s_login'])) {
 
     }
 
-  table.table .avatar {
+    table.table .avatar {
 
-    border-radius: 50%;
+        border-radius: 50%;
 
-    vertical-align: middle;
+        vertical-align: middle;
 
-    margin-right: 10px;
+        margin-right: 10px;
 
-  }
+    }
 
 
 
@@ -272,39 +272,41 @@ if (!isset($_SESSION['s_login'])) {
 
         font-size: 13px;
 
-    }    
+    }
 
-  
 
-  
 
-  /* Modal styles */
 
-  .modal .modal-dialog {
 
-    max-width: 400px;
+    /* Modal styles */
 
-  }
+    .modal .modal-dialog {
 
-  .modal .modal-header, .modal .modal-body, .modal .modal-footer {
+        max-width: 400px;
 
-    padding: 20px 30px;
+    }
 
-  }
+    .modal .modal-header,
+    .modal .modal-body,
+    .modal .modal-footer {
 
-  .modal .modal-content {
+        padding: 20px 30px;
 
-    border-radius: 3px;
+    }
 
-  }
+    .modal .modal-content {
 
-  .modal .modal-footer {
+        border-radius: 3px;
 
-    background: #ecf0f1;
+    }
 
-    border-radius: 0 0 3px 3px;
+    .modal .modal-footer {
 
-  }
+        background: #ecf0f1;
+
+        border-radius: 0 0 3px 3px;
+
+    }
 
     .modal .modal-title {
 
@@ -312,37 +314,36 @@ if (!isset($_SESSION['s_login'])) {
 
     }
 
-  .modal .form-control {
+    .modal .form-control {
 
-    border-radius: 2px;
+        border-radius: 2px;
 
-    box-shadow: none;
+        box-shadow: none;
 
-    border-color: #dddddd;
+        border-color: #dddddd;
 
-  }
+    }
 
-  .modal textarea.form-control {
+    .modal textarea.form-control {
 
-    resize: vertical;
+        resize: vertical;
 
-  }
+    }
 
-  .modal .btn {
+    .modal .btn {
 
-    border-radius: 2px;
+        border-radius: 2px;
 
-    min-width: 100px;
+        min-width: 100px;
 
-  } 
+    }
 
-  .modal form label {
+    .modal form label {
 
-    font-weight: normal;
+        font-weight: normal;
 
-  } 
-
-</style>
+    }
+    </style>
 
 </head>
 
@@ -352,132 +353,136 @@ if (!isset($_SESSION['s_login'])) {
 
 
 
-      <!-- Static navbar -->
+    <!-- Static navbar -->
 
-      <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default">
 
         <div class="container-fluid">
 
-          <div class="navbar-header">
+            <div class="navbar-header">
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
 
-              <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">Toggle navigation</span>
 
-              <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
 
-              <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
 
-              <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
 
-            </button>
+                </button>
 
-            <a class="navbar-brand" href="#">Fabri Gráfica Digital</a>
+                <a class="navbar-brand" href="#">Fabri Gráfica Digital</a>
 
-          </div>
+            </div>
 
-          <div id="navbar" class="navbar-collapse collapse">
+            <div id="navbar" class="navbar-collapse collapse">
 
-            <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav">
 
-              <li class="active"><a href="index.php">INICIO</a></li>
-
-             
-
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-
-             
-
-             
-
-              <li><a href="#"><?php echo "$VarNome"; ?></a></li>
-
-              <li><a href="../administrador/logout.php">SAIR</a></li>
-
-            </ul>
-
-          </div><!--/.nav-collapse -->
-
-        </div><!--/.container-fluid -->
-
-      </nav>
-
-        <div class="table-wrapper">
-
-            <div class="table-title">
-
-                <div class="row">
-
-                    <div class="col-sm-6">
-
-            <h2>Serviços</b></h2>
-
-          </div>
-
-          <div class="col-sm-6">
-
-          <div class="row ">
-
-           <a href="solicitar_servico.php" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Solicitar Serviço</span></a>
+                    <li class="active"><a href="index.php">INICIO</a></li>
 
 
-          <a href="aguardando.php"> <button class="btn btn-lg btn-info">Aguardando</button></a>
 
-          <a href="confirmados.php"><button class="btn btn-lg btn-warning">Confirmados</button></a>
+                </ul>
 
-          <a href="index.php"><button class="btn btn-lg btn-primary">Todos</button></a>
+                <ul class="nav navbar-nav navbar-right">
 
 
 
 
 
-         </div>
+                    <li><a href="#"><?php echo "$VarNome"; ?></a></li>
 
- 
+                    <li><a href="../administrador/logout.php">SAIR</a></li>
 
-            
+                </ul>
 
-           
+            </div>
+            <!--/.nav-collapse -->
 
-                      
+        </div>
+        <!--/.container-fluid -->
 
-          </div>
+    </nav>
+
+    <div class="table-wrapper">
+
+        <div class="table-title">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+
+                    <h2>Serviços</b></h2>
+
+                </div>
+
+                <div class="col-sm-6">
+
+                    <div class="row ">
+
+                        <a href="solicitar_servico.php" class="btn btn-success"><i class="material-icons">&#xE147;</i>
+                            <span>Solicitar Serviço</span></a>
+
+
+                        <a href="aguardando.php"> <button class="btn btn-lg btn-info">Aguardando</button></a>
+
+                        <a href="confirmados.php"><button class="btn btn-lg btn-warning">Confirmados</button></a>
+
+                        <a href="index.php"><button class="btn btn-lg btn-primary">Todos</button></a>
+
+
+
+
+
+                    </div>
+
+
+
+
+
+
+
+
 
                 </div>
 
             </div>
 
-            <table class="table table-striped table-hover">
+        </div>
 
-                <thead>
+        <table class="table table-striped table-hover">
 
-                    <tr>
+            <thead>
 
-                        <th style="width: 100px;">Data Inicio</th>
+                <tr>
 
-                        <th>Código</th>
+                    <th style="width: 100px;">Data Inicio</th>
 
-                        <th>Quantidade</th>
+                    <th>Código</th>
 
-                        <th>Disponivel</th>
+                    <th>Quantidade</th>
 
-                        <th>Descrição</th>    
+                    <th>Disponivel</th>
 
-                        <th>Serviço</th>
+                    <th>Descrição</th>
 
-                        <th>Atualização</th>
+                    <th>Serviço</th>
 
-                        <th>Status</th>   
+                    <th>Atualização</th>
 
-                    </tr>
+                    <th>Status</th>
 
-                </thead>
+                </tr>
 
-                <tbody>
+            </thead>
 
-                   <?php
+            <tbody>
+
+                <?php
 
     $result_impres= "SELECT impressao.id,impressao.descricao,
 
@@ -527,63 +532,63 @@ WHERE NOT impressao.status=5 AND usuarios.id ='$VarID' AND NOT produtos.status= 
 
 
 
-    <?php while($rows_impres = mysqli_fetch_assoc($resultado_impres)){ 
+                <?php while($rows_impres = mysqli_fetch_assoc($resultado_impres)){ 
 
     ?>
 
-            <tr>
+                <tr>
 
-            <td><?php echo $rows_impres['data_inicio']; ?></td>
+                    <td><?php echo $rows_impres['data_inicio']; ?></td>
 
-            <td><?php echo $rows_impres['codigo']; ?></td>
-
-
-
-            <td><?php echo $rows_impres['quantidade']; ?></td>
-
-            <td><?php echo $rows_impres['disponivel']; ?></td>
-
-            <td><?php echo $rows_impres['descricao']; ?></td>  
-
-            <td><?php echo $rows_impres['descricao_prod']; ?></td>
-
-                
-
-                <td><?php echo $rows_impres['data']; ?></td>
-
-                <td><?php echo $rows_impres['Status']; ?></td>
-
-                <td><?php echo $rows_impres['Executor']; ?></td>
+                    <td><?php echo $rows_impres['codigo']; ?></td>
 
 
 
-                         </tr>
+                    <td><?php echo $rows_impres['quantidade']; ?></td>
 
-                  <?php }?>
+                    <td><?php echo $rows_impres['disponivel']; ?></td>
 
-        
+                    <td><?php echo $rows_impres['descricao']; ?></td>
 
-                </tbody>
+                    <td><?php echo $rows_impres['descricao_prod']; ?></td>
 
-            </table>
 
-      
 
-        </div>
+                    <td><?php echo $rows_impres['data']; ?></td>
+
+                    <td><?php echo $rows_impres['Status']; ?></td>
+
+                    <td><?php echo $rows_impres['Executor']; ?></td>
+
+
+
+                </tr>
+
+                <?php }?>
+
+
+
+            </tbody>
+
+        </table>
+
+
+
+    </div>
 
     </div>
 
 
 
-<div id="Adicionar" class="modal fade">
+    <div id="Adicionar" class="modal fade">
 
         <div class="modal-dialog">
 
             <div class="modal-content">
 
-                <form  method="POST" action="send_impres.php">
+                <form method="POST" action="send_impres.php">
 
-                    <div class="modal-header">                      
+                    <div class="modal-header">
 
                         <h4 class="modal-title">Solicitar Serviço</h4>
 
@@ -593,29 +598,32 @@ WHERE NOT impressao.status=5 AND usuarios.id ='$VarID' AND NOT produtos.status= 
 
                     <div class="modal-body">
 
-                    <div class="form-group">
+                        <div class="form-group">
 
-                    <label>Dercrição</label>
+                            <label>Dercrição</label>
 
-                    <input required type="text" class="form-control"  placeholder="Descreva a impressão" name ="descricao" >                        </div>  
+                            <input required type="text" class="form-control"
+                                placeholder="informe o solicitante e descreva o serviço" name="descricao">
+                        </div>
 
-                                        
+
 
                         <div class="form-group">
 
                             <label>Quantidade</label>
 
-                           <input required type="text" class="form-control" placeholder="Número de páginas" name="quantidade" onkeyup="somenteNumeros(this);">
+                            <input required type="text" class="form-control" placeholder="Número de páginas"
+                                name="quantidade" onkeyup="somenteNumeros(this);">
 
                         </div>
 
-                        <select name="descricao_prod" class="browser-default custom-select my-3" >
+                        <select name="descricao_prod" class="browser-default custom-select my-3">
 
-        <option selected>Tipo de impressão</option>
+                            <option selected>Tipo de impressão</option>
 
 
 
-            <?php
+                            <?php
 
             $result_produtos = "SELECT * FROM produtos WHERE status = '0'";
 
@@ -623,19 +631,19 @@ WHERE NOT impressao.status=5 AND usuarios.id ='$VarID' AND NOT produtos.status= 
 
             while($row_produtos = mysqli_fetch_assoc($resultado_produtos)){ ?>
 
-              <option  value="<?php echo $row_produtos['descricao_prod']; ?>">
+                            <option value="<?php echo $row_produtos['descricao_prod']; ?>">
 
-                <?php echo $row_produtos['descricao_prod']; ?></option> <?php
+                                <?php echo $row_produtos['descricao_prod']; ?></option> <?php
 
             }
 
           ?>
 
-    </select>
+                        </select>
 
-                        
 
-                                            
+
+
 
                     </div>
 
@@ -655,8 +663,7 @@ WHERE NOT impressao.status=5 AND usuarios.id ='$VarID' AND NOT produtos.status= 
 
     </div>
 
-     <script>
-
+    <script>
     function somenteNumeros(num) {
 
         var er = /[^0-9.]/;
@@ -667,36 +674,37 @@ WHERE NOT impressao.status=5 AND usuarios.id ='$VarID' AND NOT produtos.status= 
 
         if (er.test(campo.value)) {
 
-          campo.value = "";
+            campo.value = "";
 
         }
 
     }
+    </script>
 
- </script>
-
- <div class="footer-bottom">
+    <div class="footer-bottom">
 
         <div class="container">
 
             <p class="pull-left"> Copyright © Vedas Sistemas 2019. Todos os direitos reservados. </p>
 
-           
+
 
         </div>
 
     </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-  
 
-  <!-- Importando o js do bootstrap -->
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Importando o js do bootstrap -->
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+    </script>
 
 
 
 </body>
 
-</html>                                                               
+</html>

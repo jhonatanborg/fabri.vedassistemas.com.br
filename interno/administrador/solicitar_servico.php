@@ -183,7 +183,7 @@ if (!isset($_SESSION['s_login'])) {
                             <div class=" form-group">
                                 <label>Descrição</label>
                                 <input v-model="form.descricao" required type="text" class="form-control"
-                                    placeholder="Descreva a impressão" name="descricao">
+                                    placeholder="informe o solicitante e descreva o serviço" name="descricao">
                             </div>
                             <div>
                                 Total do pedido <b v-text="formatCurrency(totalRequest)"></b>

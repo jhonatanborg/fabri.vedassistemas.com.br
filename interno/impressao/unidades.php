@@ -141,7 +141,8 @@ $ano = date ("Y");
                         </div>
                         <div class="card-body-unity row">
                             <div class="col-sm-9">
-                                <span class="card-body-text">Crédito Total: <b v-text="unity.valor_unidade">
+                                <span class="card-body-text">Crédito Total: <b
+                                        v-text="formatCurrency(unity.valor_unidade)">
                                     </b> </span>
                                 <div class=" rounded-4">
                                     <span class="card-body-text">Consumido: <b

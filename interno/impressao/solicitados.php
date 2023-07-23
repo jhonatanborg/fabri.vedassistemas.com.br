@@ -32,7 +32,7 @@ if (!isset($_SESSION['s_login'])) {
  $ano = date ("Y");
  function loadData(){
   global $VarID, $mes, $ano;
-  $resultado = realizarConsulta($VarID, $mes, $ano);
+  $resultado = realizarConsulta();
   return $resultado;
  };
  
@@ -47,7 +47,6 @@ if (isset($_POST['filtrar'])) {
  
 } else {
     $resultado = loadData();
-    echo json_encode($resultado);
 }
  $unidade_name = getUnidade();
 ?>
@@ -89,14 +88,12 @@ if (isset($_POST['filtrar'])) {
             <div class="modal-dialog" v-if="impressSelected">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Confirmação de recebimento</h4>
+                        <h4 class="modal-title" v-text="modal.title"></h4>
                         <button type="button" class="close" @click="closeModal" data-dismiss="modal"
                             aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <p>Tem certeza que deseja confirmar que o serviço código <b> #{{impressSelected}} </b> foi
-                            entregue
-                            corretamente?</p>
+                        <p v-text="modal.message"></p>
                         <p class="text-warning"><small>Esta ação não pode ser desfeita.</small></p>
                     </div>
                     <div class="modal-footer">
@@ -246,13 +243,23 @@ if (isset($_POST['filtrar'])) {
                         </div>
                     </td>
                     <td>
-                        <div @click="openModal(item.id)" class="col-sm-4 cursor-pointer"
-                            v-if="item.status === '4' && Number(item.id_professor) === id">
+                        <div @click="openModal(item.id, 8)" class="col-sm-4 cursor-pointer" v-if="item.status === '4'">
                             <span class="material-symbols-outlined  color-red">
                                 receipt_long
                             </span>
                         </div>
+                        <div @click="openModal(item.id, 1)" class="col-sm-4 cursor-pointer" v-if="item.status === '0' ">
+                            <span class="material-symbols-outlined  color-red">
+                                send
+                            </span>
+                        </div>
+                        <div v-if="item.status !== '2'" @click="openModal(item.id, 2)" class="col-sm-4 cursor-pointer">
+                            <span class="material-symbols-outlined  color-red">
+                                close
+                            </span>
+                        </div>
                     </td>
+
                 </tr>
             </tbody>
         </table>
@@ -277,7 +284,12 @@ var app = new Vue({
         filter: '',
         isModalOpen: false,
         impressSelected: null,
-        id: <?php echo $VarID; ?>
+        id: <?php echo $VarID; ?>,
+        modal: {
+            id: null,
+            status: null,
+            message: null,
+        }
     },
     watch: {
         isModalOpen() {
@@ -310,7 +322,23 @@ var app = new Vue({
         formatCurrency(value) {
             return formatCurrency(value)
         },
-        openModal(id) {
+        openModal(id, status) {
+            const message = {
+                2: 'Tem certeza que deseja recusar o pedido #' + id + '?',
+                8: 'Tem certeza que deseja confirmar o recebimento do pedido #' + id + ' ?',
+                1: 'Tem certeza que deseja autorizar o pedido #' + id + ' ?',
+            }
+            const title = {
+                2: 'Recusar pedido',
+                8: 'Confirmar recebimento',
+                1: 'Autorizar pedido',
+            }
+            this.modal = {
+                id: id,
+                status: status,
+                message: message[status],
+                title: title[status],
+            }
             this.isModalOpen = true;
             this.impressSelected = id;
         },
@@ -331,7 +359,7 @@ var app = new Vue({
                     },
                     body: JSON.stringify({
                         id: id,
-                        status: 8,
+                        status: this.modal.status,
                     }),
                 })
                 .then(response => response.json())
