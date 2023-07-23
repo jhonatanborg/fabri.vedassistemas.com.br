@@ -210,11 +210,6 @@ if (isset($_POST['filtrar'])) {
                                 <div class="col-sm-8">
                                     <span v-text="item.Status"></span>
                                 </div>
-                                <div @click="openModal(item.id)" class="col-sm-4" v-if="item.status === '4'">
-                                    <span class="material-symbols-outlined  color-red">
-                                        receipt_long
-                                    </span>
-                                </div>
                             </div>
                         </td>
                     </tr>
