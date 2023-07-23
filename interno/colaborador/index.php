@@ -191,7 +191,7 @@ FROM impressao
 LEFT JOIN produtos ON produtos.id = impressao.id_produto
 LEFT JOIN usuarios ON impressao.id_professor = usuarios.id
 LEFT JOIN usuarios usuarios2 ON impressao.status = usuarios2.id
-WHERE impressao.status = 1 OR impressao.status = 3";
+WHERE impressao.status = 1 OR impressao.status = 3 OR impressao.status = 4";
 
     $resultado_impres = mysqli_query($conn, $result_impres);
     
@@ -247,6 +247,20 @@ WHERE impressao.status = 1 OR impressao.status = 3";
                         <?php if($rows_impres['status'] == 3){ ?>
                         <a href="#" class="send"><i class="fa fa-check" type="button" class="material-icons"
                                 data-toggle="modal" title="Concluir" data-target="#confirmar"
+                                data-whatever="<?php echo $rows_impres['id']; ?>"
+                                data-whatevernome="<?php echo $rows_impres['Solicitante']; ?>"
+                                data-whatevercodigo="<?php echo $rows_impres['codigo']; ?>"
+                                data-whateverquantidade="<?php echo $rows_impres['quantidade'];?>"
+                                data-whateverdescricao="<?php echo $rows_impres['descricao']; ?>"
+                                data-whateverdescricao_prod="<?php echo $rows_impres['descricao_prod']; ?>">
+
+                            </i></a>
+
+
+                        <?php }?>
+                        <?php if($rows_impres['status'] == 4){ ?>
+                        <a href="#" class="send"><i class="fa fa-thumbs-o-up" type="button" class="material-icons"
+                                data-toggle="modal" title="Confirmar entrega" data-target="#confirmar-entrega"
                                 data-whatever="<?php echo $rows_impres['id']; ?>"
                                 data-whatevernome="<?php echo $rows_impres['Solicitante']; ?>"
                                 data-whatevercodigo="<?php echo $rows_impres['codigo']; ?>"
@@ -373,8 +387,62 @@ WHERE impressao.status = 1 OR impressao.status = 3";
 
 
 
-                            <small>Ao confirmar essa solitação, o serviço será encaminhado direto para a Fabri Gráfica
-                                Digital</small>
+                            <small>Ao confirmar essa solitação, você confirma que o pedido esta pronto!</small>
+                        </p>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+
+                        <input type="submit" class="btn btn-success" value="Confirmar">
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div id="confirmar-entrega" class="modal fade">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <form method="POST" action="update_status.php">
+
+                    <div class="modal-header">
+
+                        <h4 class="modal-title"></h4>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        <p>Confirmar entrega de solicitação?</p>
+
+                        <input type="hidden" class="form-control" id="id" name="id">
+
+                        <input name="descricao_prod" type="hidden" class="form-control" id="descricao_prod">
+
+                        <input name="Solicitante" type="hidden" class="form-control" id="Solicitante">
+
+                        <input name="codigo" type="hidden" class="form-control" id="codigo">
+
+
+
+                        <p class="text-warning">
+
+
+
+                            <small>Ao confirmar essa solitação, você confirma que o serviço solicitado foi
+                                entregue</small>
                         </p>
 
                     </div>
@@ -460,7 +528,7 @@ WHERE impressao.status = 1 OR impressao.status = 3";
 
         var modal = $(this)
 
-        modal.find('.modal-title').text('Solicitação de:' + recipientnome)
+        modal.find('.modal-title').text('Pedido: ' + '#' + recipient)
 
         modal.find('#id').val(recipient)
 
@@ -501,7 +569,47 @@ WHERE impressao.status = 1 OR impressao.status = 3";
 
         var modal = $(this)
 
-        modal.find('.modal-title').text('Confirmar solicitação de:' + recipientnome)
+        modal.find('.modal-title').text('Pedido: ' + '#' + recipient)
+
+        modal.find('#id').val(recipient)
+
+        modal.find('#recipient-codigo').val(recipientcodigo)
+
+        modal.find('#quantidade').val(recipientquantidade)
+
+        modal.find('#descricao').val(recipientdescricao)
+
+        modal.find('#descricao_prod').val(recipientdescricao)
+
+
+
+    })
+    </script>
+    <script type="text/javascript">
+    $('#confirmar-entrega').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+
+        var recipient = button.data('whatever') // Extract 
+
+        var recipientnome = button.data('whatevernome')
+
+        var recipientquantidade = button.data('whateverquantidade')
+
+        var recipientdescricao = button.data('whateverdescricao')
+
+        var recipientdescricao_prod = button.data('whateverdescricao_prod')
+
+
+
+
+
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+
+        var modal = $(this)
+
+        modal.find('.modal-title').text('Pedido: ' + '#' + recipient)
 
         modal.find('#id').val(recipient)
 
