@@ -104,6 +104,19 @@ if (!isset($_SESSION['s_login'])) {
             </div>
             <!--/.container-fluid -->
         </nav>
+        <div class="px-5 row flex-end">
+            <div class="col-sm-2 ">
+                <div class="card">
+                    <div>
+                        <b><b>{{formatCurrency(valueAvaiableUnity)}}</b></b>
+                    </div>
+                    <div>
+                        <small>Saldo disponivel
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
@@ -282,7 +295,7 @@ if (!isset($_SESSION['s_login'])) {
 
             setTimeout(function() {
                 window.location.reload(1);
-            }, 30000);
+            }, 100000);
         },
         methods: {
             formatCurrency(value) {
@@ -297,11 +310,13 @@ if (!isset($_SESSION['s_login'])) {
                 this.form.codigo = product.codigo
             },
             async saveForm() {
+                if (!this.isDisabled.isValid) return
                 const payload = {
                     id: this.productSelected.id,
                     quantidade: this.form.quantidade,
                     descricao: this.form.descricao,
                 }
+                console.log("🚀 ~ file: solicitar_servico.php:306 ~ saveForm ~ payload:", payload)
                 fetch('send_impres.php', {
                         method: 'POST',
                         headers: {

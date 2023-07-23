@@ -26,7 +26,7 @@ $mes = date ("m");
  $ano = date ("Y");
  
 
-$result_produtos = "SELECT * FROM produtos WHERE status ='0'ORDER BY id DESC";
+$result_produtos = "SELECT * FROM produtos WHERE status ='0'ORDER BY id ASC";
 
 $resultado_produtos = mysqli_query($conn, $result_produtos);
 
@@ -183,6 +183,7 @@ $produtos_json = json_encode($produtos);
 
 
                             <th>Descrição</th>
+                            <th>Un. de medida</th>
 
                             <th>Ação</th>
 
@@ -204,35 +205,23 @@ $produtos_json = json_encode($produtos);
                             <td v-text="product.codigo"></td>
                             <td v-text="product.quantidade"></td>
                             <td v-text="formatCurrency(product.valor_unidade)"></td>
-
                             <td v-text="product.descricao_prod"></td>
+                            <td v-text="product.un_medida"></td>
                             <td>
                                 <a @click="handleEdit(product.id)" href="#" class="edit"><i type="button"
                                         class="material-icons orange600" data-toggle="modal" title="Edit"
                                         data-target="#exampleModal">
                                         &#xE254;</i></a>
 
-                                <a href="#" class="delete"><i type="button" class="material-icons" data-toggle="modal"
-                                        title="Delete" data-target="#deleteEmployeeModal">&#xE872;</i></a>
-
-
+                                <a @click="deleteProduct(product.id)" class="delete cursor-pointer"><i type="button"
+                                        class="material-icons" data-toggle="modal" title="Delete"
+                                        data-target="#deleteEmployeeModal">&#xE872;</i></a>
 
                             </td>
 
                         </tr>
-
-
-
-
-
-
-
                     </tbody>
-
                 </table>
-
-
-
             </div>
 
         </div>
@@ -293,6 +282,16 @@ $produtos_json = json_encode($produtos);
                                 <input type="text" class="form-control" required name="descricao_prod">
 
                             </div>
+                            <div class="form-group">
+
+                                <label>Unidade de fornecimento</label>
+
+                                <select v-model="form.un_medida" name="un_medida" class="form-control" required>
+                                    <option value="Unidade">Unidade</option>
+                                    <option value="Metro Linear">Metro Linear</option>
+                                </select>
+
+                            </div>
 
 
                             <input type="hidden" class="form-control" required name="id" value="form.id">
@@ -336,7 +335,6 @@ $produtos_json = json_encode($produtos);
                     <div class="modal-body">
 
 
-
                         <div>
 
                             <div class="form-group">
@@ -373,6 +371,16 @@ $produtos_json = json_encode($produtos);
                                     name="descricao_prod" id="descricao">
 
                             </div>
+                            <div class="form-group">
+
+                                <label>Unidade de fornecimento</label>
+
+                                <select v-model="form.un_medida" name="un_medida" class="form-control" required>
+                                    <option value="Unidade">Unidade</option>
+                                    <option value="Metro Linear">Metro Linear</option>
+                                </select>
+
+                            </div>
 
 
                             <div class="modal-footer">
@@ -395,68 +403,67 @@ $produtos_json = json_encode($produtos);
 
             </div>
 
+        </div>
 
+        <!-- Delete Modal HTML -->
 
-            <!-- Delete Modal HTML -->
+        <div ref="myModal" id="deleteEmployeeModal" class="modal fade">
 
-            <div id="deleteEmployeeModal" class="modal fade">
+            <div class="modal-dialog" id="deleteEmployeeModal">
 
-                <div class="modal-dialog">
+                <div class="modal-content">
 
-                    <div class="modal-content">
+                    <form>
 
-                        <form method="POST" action="delete.php">
+                        <div class="modal-header">
 
-                            <div class="modal-header">
+                            <h4 class="modal-title">Deletar serviço</h4>
 
-                                <h4 class="modal-title">Deletar serviço</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-                                <button type="button" class="close" data-dismiss="modal"
-                                    aria-hidden="true">&times;</button>
+                        </div>
 
-                            </div>
+                        <div class="modal-body">
 
-                            <div class="modal-body">
+                            <p>Tem certeza que deseja deletar o serviço selecionado?</p>
 
-                                <p>Tem certeza que deseja deletar o serviço selecionado?</p>
+                            <input type="hidden" class="form-control" id="id" name="id">
 
-                                <input type="hidden" class="form-control" id="id" name="id">
+                            <p class="text-warning">
 
-                                <p class="text-warning">
+                                <small>Fazendo isso você deleterá o serviço permanentemente</small>
+                            </p>
 
-                                    <small>Fazendo isso você deleterá o serviço permanentemente</small>
-                                </p>
+                        </div>
 
-                            </div>
+                        <div class="modal-footer">
 
-                            <div class="modal-footer">
+                            <input class="btn btn-default" data-dismiss="modal" value="Cancel">
 
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <input @click="confirmDelete" class="btn btn-danger" value="Excluir">
 
-                                <input type="submit" class="btn btn-danger" value="Delete">
+                        </div>
 
-                            </div>
-
-                        </form>
-
-                    </div>
+                    </form>
 
                 </div>
 
             </div>
 
-            <footer>
-
-                <div class="footer" id="footer">
-                    <div class="container">
-                        <p class="pull-left"> Copyright © Vedas Sistemas 2023. Todos os direitos reservados. </p>
-                    </div>
-
-                </div>
-
         </div>
 
-        </footer>
+        <footer>
+
+            <div class="footer" id="footer">
+                <div class="container">
+                    <p class="pull-left"> Copyright © Vedas Sistemas 2023. Todos os direitos reservados. </p>
+                </div>
+
+            </div>
+
+    </div>
+
+    </footer>
     </div>
 
     <!-- Static navbar -->
@@ -482,22 +489,51 @@ $produtos_json = json_encode($produtos);
                 quantidade: '',
                 descricao_prod: '',
                 id: '',
+                un_medida: '',
             },
+            productSelected: {
+                id: '',
+            }
         },
         methods: {
             handleEdit(id) {
                 const product = this.products.find(product => product.id === id)
-                console.log('product', product)
                 this.form = {
                     id: product.id,
                     codigo: product.codigo,
                     valor_unidade: product.valor_unidade,
                     quantidade: product.quantidade,
                     descricao_prod: product.descricao_prod,
+                    un_medida: product.un_medida,
                 }
+            },
+            deleteProduct(id) {
+                this.form.id = id
+                this.productSelected.id = id
+            },
+            confirmDelete() {
 
-
-
+                const payload = {
+                    id: this.productSelected.id,
+                }
+                fetch('delete.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload),
+                    })
+                    .then(response => response.json())
+                    .then(resp => {
+                        if (resp.status === 'success') {
+                            this.products = this.products.filter(product => product.id !== this.form.id)
+                            location.reload();
+                        }
+                    })
+                    .catch(error => {
+                        // Tratamento de erro
+                        console.error(error);
+                    });
             },
             formatCurrency(value) {
                 return formatCurrency(value)
@@ -507,22 +543,9 @@ $produtos_json = json_encode($produtos);
                     method: 'POST',
                     body: JSON.stringify(this.form)
                 }).then((resp) => {
-                    const productId = this.form.id
-                    const productIndex = this.products.findIndex(product => product.id ===
-                        productId)
-                    this.products[productIndex] = this.form
-                    this.form = {
-                        codigo: '',
-                        valor_unidade: '',
-                        quantidade: '',
-                        descricao_prod: '',
-                        id: '',
-                    }
-                    // click element id 
-                    document.getElementById("closeModal").click();
+                    location.reload();
 
-
-
+                    console.log("🚀 ~ file: inicio.php:545 ~ saveForm ~ resp:", resp)
                 }).catch((err) => {
                     console.log(err)
                 })
@@ -551,51 +574,10 @@ $produtos_json = json_encode($produtos);
 
     <script type="text/javascript">
     $('#exampleModal').on('show.bs.modal')
+    $('#deleteEmployeeModal').on('show.bs.modal')
     </script>
-
-    <script type="text/javascript">
-    $('#deleteEmployeeModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget)
-
-        var recipient = button.data('whatever') // Extract
-
-        var recipientcodigo = button.data('whatevercodigo')
-
-        var recipientquantidade = button.data('whateverquantidade')
-
-        var recipientvalor_unidade = button.data('whatevervalor_unidade')
-
-        var recipientdescricao = button.data('whateverdescricao')
-
-
-
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-
-        var modal = $(this)
-
-        modal.find('.modal-title').text('Código:' + recipientcodigo)
-
-        modal.find('#id').val(recipient)
-
-        modal.find('#recipient-codigo').val(recipientcodigo)
-
-        modal.find('#quantidade').val(recipientquantidade)
-
-        modal.find('#valor_unidade').val(recipientvalor_unidade)
-
-        modal.find('#descricao').val(recipientdescricao)
-
-    })
-    </script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
     <script src="../js/bootstrap.min.js"></script>
-
-
-
 </body>
 
 </html>

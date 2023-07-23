@@ -270,7 +270,7 @@ if (!isset($_SESSION['s_login'])) {
 
             setTimeout(function() {
                 window.location.reload(1);
-            }, 30000);
+            }, 100000);
         },
         methods: {
             formatCurrency(value) {
@@ -284,6 +284,8 @@ if (!isset($_SESSION['s_login'])) {
                 this.form.codigo = product.codigo
             },
             async saveForm() {
+                if (!this.isDisabled.isValid) return
+
                 const payload = {
                     id: this.productSelected.id,
                     quantidade: this.form.quantidade,

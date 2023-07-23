@@ -32,7 +32,7 @@ $sql2= "SELECT
   i.id_professor,
   u.nome AS Solicitante,
   u2.nome AS Executor
-FROM impressao i
+  FROM impressao i
 LEFT JOIN produtos p ON p.id = i.id_produto
 LEFT JOIN usuarios u ON i.id_professor = u.id
 LEFT JOIN usuarios u2 ON i.status = u2.id
@@ -66,5 +66,33 @@ include("../conexao_bd.php");
  $row = mysqli_fetch_assoc($result);
  $VarUnidadeNome = $row['name'];
  return $VarUnidadeNome;
+}
+
+function getSaldo(){
+  include("../conexao_bd.php");
+  
+  $VarUnidade = $_SESSION['s_unidade'];
+  $sql = "SELECT
+  impressao.id_unidade,
+  impressao.id,
+  SUM(impressao.quantidade) AS totquantidade,
+  produtos.valor_unidade AS valortotal,
+  SUM(impressao.quantidade * produtos.valor_unidade) AS valortotal,
+  usuarios.nome AS nome_professor,
+  (SELECT name FROM unidades WHERE id = impressao.id_unidade) AS unidade_nome
+FROM impressao
+JOIN produtos ON impressao.id_produto = produtos.id
+JOIN usuarios ON impressao.id_professor = usuarios.id
+WHERE impressao.id_unidade = '$VarUnidade'
+AND impressao.status IN (0, 1, 3, 4, 8)";
+  $result = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_assoc($result);
+
+  $sql_unidade = "SELECT * FROM unidades WHERE id = '$VarUnidade'";
+  $result_unidade = mysqli_query($conn, $sql_unidade);
+  $row_unidade = mysqli_fetch_assoc($result_unidade);
+  $VarSaldo = $row_unidade['value'] - $row['valortotal'];
+  $formatedCurrency = number_format($VarSaldo, 4, ',', '.');
+  return $formatedCurrency;
 }
 ?>

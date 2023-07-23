@@ -3,28 +3,31 @@ session_start();
 include_once("../conexao_bd.php");
 
 
-$id2 = $_POST['id'];
+$data = json_decode(file_get_contents('php://input'), true);
 
-$result_impres2 = "SELECT id_produto FROM impressao";
-$resultado_impres2 = mysqli_query($conn,$result_impres2);
+$id = $data['id'];
 
-while ( $lista_id = mysqli_fetch_assoc( $resultado_impres2 ) ) {
-	$id_produto_impressao = $lista_id[ "id_produto" ];
+$result_list_impressao ="SELECT * FROM impressao WHERE impressao.id_produto = '$id' LIMIT 1";
+$resultado_list_impressao = mysqli_query($conn, $result_list_impressao);
+
+// delete product only if it has no impressions
+if(mysqli_num_rows($resultado_list_impressao) == 0){
+	$result_produtos = "UPDATE produtos SET status = '1' WHERE id = '$id'";
+	$resultado_produtos = mysqli_query($conn, $result_produtos);
+}
+$response = array();
+
+if($resultado_produtos){
+	$response['status'] = 'success';
+	$response['message'] = 'Produto excluído com sucesso!';
+}else{
+	$response['status'] = 'error';
+	$response['message'] = 'Não foi possível excluir o produto!';
 }
 
-if ($id_produto_impressao === $id2) {
-echo '<script>alert(\'Produto possui registro em pedidos de impressão\');parent.location =\'inicio.php\';</script>';
-}
-else if ($id_produto_impressao != $id2) {
-	
-	$result_impres = "UPDATE produtos SET status = '1' WHERE id = '$id2'";
-	$resultado_impres = mysqli_query($conn,$result_impres);
 
-if ($resultado_impres = true) {
-	header('Location:inicio.php');
-	
-}
-	
-}
+header('Content-type: application/json');
+echo json_encode($response);
+
 
 ?>

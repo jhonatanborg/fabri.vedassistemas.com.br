@@ -1,4 +1,5 @@
 <?php
+require("./querys/saldo.php");
 
 if (!isset($_SESSION)) session_start();
 
@@ -25,13 +26,11 @@ $mes = date ("m");
 
 $ano = date ("Y");
 
-$sql_unidades = "SELECT * FROM unidades";
-$result = mysqli_query($conn,$sql_unidades);
-$unidades = [];
-while ($row = mysqli_fetch_assoc($result)) {
-  $unidades[] = $row;
-}
-    
+
+
+
+
+  $resultado = getSaldo();
 ?>
 
 
@@ -129,26 +128,42 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <h4>Unidades</h4>
             </div>
 
-            <div class="row">
+            <div class="d-flex">
                 <div class="col-sm-6" v-for="(unity, key) in unitys">
                     <div v-if="!unity.isEdit" class="card-unity">
                         <div class="card-header-unity">
                             <div>
-                                <span class="card-unity-title" v-text="unity.name"></span>
+                                <span class="card-unity-title" v-text="unity.nome_unidade"></span>
                             </div>
                             <div class="pointer" @click="handleEditUnity(key)">
                                 <i class="material-icons">edit</i>
                             </div>
                         </div>
-                        <div class="card-body-unity">
-                            <span class="card-body-text">Crédito: <b v-text="unity.value">
-                                </b> </span>
+                        <div class="card-body-unity row">
+                            <div class="col-sm-9">
+                                <span class="card-body-text">Crédito Total: <b v-text="unity.valor_unidade">
+                                    </b> </span>
+                                <div class=" rounded-4">
+                                    <span class="card-body-text">Consumido: <b
+                                            v-text="formatCurrency(unity.saldo_gasto)">
+                                        </b> </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 rounded-4">
+                                <div>
+                                    <small>
+                                        Disponivel:
+                                    </small>
+                                </div>
+                                <span class=""><b v-text="formatCurrency(unity.valor_unidade - unity.saldo_gasto)">
+                                    </b> </span>
+                            </div>
                         </div>
                     </div>
                     <div v-if="unity.isEdit" class="card-unity">
                         <div class="card-header-unity">
                             <div>
-                                <span class="card-unity-title" v-text="unity.name">ICHS</span>
+                                <span class="card-unity-title" v-text="unity.nome_unidade">ICHS</span>
                             </div>
                             <div @click="unitys[key].isEdit = false">
                                 <i class="material-icons">close</i>
@@ -157,11 +172,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <div class="card-body-unity">
                             <div class="form-group" :class="{ focused: isInputFocused }">
                                 <label class="form-label" for="last">Crédito</label>
-                                <input v-model="inputValue" @focus="handleInputFocus" @blur="handleInputBlur" id="last"
-                                    class="form-input" type="number" />
+                                <input v-model="inputValue" value="unity.valor_unidade" @focus="handleInputFocus"
+                                    @blur="handleInputBlur" id="last" class="form-input" type="number" />
                             </div>
                             <div>
-                                <button @click="saveForm(unity.id)" class="btn btn-primary">
+                                <button @click="saveForm(unity.id_unidade)" class="btn btn-primary">
                                     Confirmar
                                 </button>
                             </div>
@@ -185,20 +200,24 @@ while ($row = mysqli_fetch_assoc($result)) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="./js/utils.js"></script>
+
     <script>
     var app = new Vue({
         el: '#app',
         data: {
-            message: 'Hello Vue!',
             inputValue: '',
             isInputFocused: false,
-            unitys: <?php echo json_encode($unidades); ?>,
+            unitys: <?php echo json_encode($resultado); ?>,
         },
         async mounted() {
             const unitys = await this.handlindList(this.unitys);
             this.unitys = unitys;
         },
         methods: {
+            formatCurrency(value) {
+                return formatCurrency(value)
+            },
             handleInputFocus() {
                 this.isInputFocused = true;
             },
@@ -224,7 +243,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         this.unitys[index].isEdit = false;
                     }
                 })
-                this.inputValue = this.unitys[key].value;
+                this.inputValue = this.unitys[key].valor_unidade;
             },
             async saveForm(id) {
                 const payload = {

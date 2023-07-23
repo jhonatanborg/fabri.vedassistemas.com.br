@@ -44,6 +44,8 @@ if (isset($_POST['filtrar'])) {
     
 }
 $unidade_name = getUnidade();
+$saldo = getSaldo(); 
+
 ?>
 
 <!DOCTYPE html>
@@ -188,17 +190,29 @@ $unidade_name = getUnidade();
             <!--/.container-fluid -->
 
         </nav>
+        <div class="px-5 row flex-end">
+            <div class="col-sm-2 ">
+                <div class="card">
+                    <div>
+                        <b>R$ <?php echo $saldo; ?></b>
+                    </div>
+                    <div>
+                        <small>Saldo disponivel <?php echo "$unidade_name"; ?></small>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="table-wrapper">
 
             <div class="table-title">
 
                 <div class="row align-items-center">
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                         <h2>Serviços</b></h2>
 
                     </div>
-                    <form class="col-sm-3 row" method="POST" action="">
+                    <form class="col-sm-4 row" method="POST" action="">
                         <div class="form-group col-sm-6">
                             <div class="input-group">
                                 <input required class="form-control" type="month" id="start" name="data" min="2023-07"
@@ -239,6 +253,7 @@ $unidade_name = getUnidade();
                 <tr>
                     <th style="width: 10px;">#ID</th>
                     <th style="width: 10px;">Codigo</th>
+                    <th style="width: 10px;">Solicitante</th>
                     <th style="width: 120px;">Data Inicio</th>
                     <th style="width: 10px;">Quantidade</th>
                     <th style="width: 10px;">Descrição</th>
@@ -255,6 +270,7 @@ $unidade_name = getUnidade();
                 <tr v-for="(item, key) in listimpress">
                     <td v-text="item.id"></td>
                     <td v-text="item.codigo"></td>
+                    <td v-text="item.Solicitante"></td>
                     <td v-text="item.data_inicio"></td>
                     <td v-text="item.quantidade"></td>
                     <td v-text="item.descricao"></td>
@@ -315,6 +331,7 @@ var app = new Vue({
         isModalOpenConfirm: false,
         isModalOpenNotRequest: false,
     },
+
     watch: {
         isModalOpen() {
             console.log('passou aqui')

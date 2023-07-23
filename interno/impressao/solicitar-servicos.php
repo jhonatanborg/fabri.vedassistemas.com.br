@@ -190,6 +190,10 @@ if (!isset($_SESSION['s_login'])) {
                                     <b>{{formatCurrency(valueAvaiableUnity)}}</b>
                                 </p>
                             </div>
+                            <div class="alert alert-success" v-if="success">
+                                <span> Pedido enviado com sucesso. Caso necessário, encaminhe a arte do serviços a ser
+                                    realizado para a empresa.</span>
+                            </div>
                             <div class="alert alert-danger" v-if="!isDisabled.isValid">
                                 <span v-text="isDisabled.message"></span>
                             </div>
@@ -227,7 +231,8 @@ if (!isset($_SESSION['s_login'])) {
             products: <?php echo json_encode($produtos); ?>,
             form: {},
             valueAvaiableUnity: 0,
-            productSelected: {}
+            productSelected: {},
+            success: false,
 
         },
         computed: {
@@ -286,7 +291,7 @@ if (!isset($_SESSION['s_login'])) {
             // timeout reload page 5s
             setTimeout(function() {
                 window.location.reload(1);
-            }, 30000);
+            }, 100000);
 
 
         },
@@ -303,6 +308,8 @@ if (!isset($_SESSION['s_login'])) {
                 this.form.codigo = product.codigo
             },
             async saveForm() {
+                if (!this.isDisabled.isValid) return
+
                 const payload = {
                     id: this.productSelected.id,
                     quantidade: this.form.quantidade,
@@ -317,8 +324,11 @@ if (!isset($_SESSION['s_login'])) {
                     })
                     .then(response => response.json())
                     .then(resp => {
-                        console.log("🚀 ~ file: solicitar_servico.php:277 ~ saveForm ~ resp:", resp)
-                        window.location.reload()
+                        this.success = true
+                        setTimeout(function() {
+                            window.location.reload(1);
+                        }, 5000);
+
                     })
                     .catch(error => {
                         // Tratamento de erro

@@ -130,7 +130,6 @@ WHERE EXTRACT(MONTH FROM impressao.data) = '$mes'
   $usuarioCondition
 GROUP BY impressao.id_unidade, impressao.id_produto, produtos.descricao_prod, produtos.valor_unidade, produtos.codigo, impressao.id_professor, usuarios.nome
 ORDER BY impressao.id_unidade
-LIMIT 0, 100
 ";
 
 $resultado_impres = mysqli_query($conn, $result_impres);

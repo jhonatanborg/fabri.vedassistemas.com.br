@@ -12,14 +12,14 @@ $codigo = $data['codigo'];
 $quantidade = $data['quantidade'];
 $descricao = $data['descricao_prod'];
 $valor_unidade = $data['valor_unidade'];
+$un_medida = $data['un_medida'];
 $id = $data['id'];
 
 
 
 
-	$result_produtos = "UPDATE produtos SET codigo='$codigo', quantidade =  '$quantidade', descricao_prod='$descricao', valor_unidade='$valor_unidade' WHERE id = '$id'";
+	$result_produtos = "UPDATE produtos SET codigo='$codigo', quantidade =  '$quantidade', descricao_prod='$descricao', valor_unidade='$valor_unidade', un_medida = '$un_medida' WHERE id = '$id'";
 	$resultado_produtos = mysqli_query($conn, $result_produtos);
-	print_r($result_produtos);
 	$response = [
 		'status' => 'success',
 		'message' => 'Produto atualizado com sucesso!'
@@ -31,7 +31,8 @@ $id = $data['id'];
 			'message' => 'Erro ao atualizar produto!'
 		];
 	}
-
-	echo json_encode($response);
+echo $id;
+header('Content-type: application/json');
+echo json_encode($response);
 
 ?>

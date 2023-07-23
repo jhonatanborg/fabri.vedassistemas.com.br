@@ -43,10 +43,11 @@ if (isset($_POST['filtrar'])) {
   $ano = substr($data, 0, 4);
   $mes = substr($data, 5, 2);
   $resultado = loadData();
+  
  
 } else {
     $resultado = loadData();
-    
+    echo json_encode($resultado);
 }
  $unidade_name = getUnidade();
 ?>
@@ -211,6 +212,7 @@ if (isset($_POST['filtrar'])) {
                 <tr>
                     <th style="width: 10px;">#ID</th>
                     <th style="width: 10px;">Codigo</th>
+                    <th style="width: 10px;">Solicitante</th>
                     <th style="width: 120px;">Data Inicio</th>
                     <th style="width: 10px;">Quantidade</th>
                     <th style="width: 10px;">Descrição</th>
@@ -227,6 +229,7 @@ if (isset($_POST['filtrar'])) {
                 <tr v-for="(item, key) in listimpress">
                     <td v-text="item.id"></td>
                     <td v-text="item.codigo"></td>
+                    <td v-text="item.Solicitante"></td>
                     <td v-text="item.data_inicio"></td>
                     <td v-text="item.quantidade"></td>
                     <td v-text="item.descricao"></td>
