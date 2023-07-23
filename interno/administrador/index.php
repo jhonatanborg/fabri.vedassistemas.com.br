@@ -287,11 +287,7 @@ $saldo = getSaldo();
                         </div>
                     </td>
                     <td>
-                        <div @click="openModal(item.id)" class="col-sm-4 cursor-pointer" v-if="item.status === '4'">
-                            <span class="material-symbols-outlined  color-red">
-                                receipt_long
-                            </span>
-                        </div>
+
                         <div @click="openModalConfirm(item.id)" class="col-sm-4 cursor-pointer"
                             v-if="item.status === '0'">
                             <span class="material-symbols-outlined  color-red">
