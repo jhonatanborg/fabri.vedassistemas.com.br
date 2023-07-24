@@ -183,7 +183,6 @@ $produtos_json = json_encode($produtos);
 
 
                             <th>Descrição</th>
-                            <th>Un. de medida</th>
 
                             <th>Ação</th>
 
@@ -206,7 +205,6 @@ $produtos_json = json_encode($produtos);
                             <td v-text="product.quantidade"></td>
                             <td v-text="formatCurrency(product.valor_unidade)"></td>
                             <td v-text="product.descricao_prod"></td>
-                            <td v-text="product.un_medida"></td>
                             <td>
                                 <a @click="handleEdit(product.id)" href="#" class="edit"><i type="button"
                                         class="material-icons orange600" data-toggle="modal" title="Edit"
@@ -280,16 +278,6 @@ $produtos_json = json_encode($produtos);
                                 <label>DESCRIÇÃO</label>
 
                                 <input type="text" class="form-control" required name="descricao_prod">
-
-                            </div>
-                            <div class="form-group">
-
-                                <label>Unidade de fornecimento</label>
-
-                                <select v-model="form.un_medida" name="un_medida" class="form-control" required>
-                                    <option value="Unidade">Unidade</option>
-                                    <option value="Metro Linear">Metro Linear</option>
-                                </select>
 
                             </div>
 
@@ -371,16 +359,7 @@ $produtos_json = json_encode($produtos);
                                     name="descricao_prod" id="descricao">
 
                             </div>
-                            <div class="form-group">
 
-                                <label>Unidade de fornecimento</label>
-
-                                <select v-model="form.un_medida" name="un_medida" class="form-control" required>
-                                    <option value="Unidade">Unidade</option>
-                                    <option value="Metro Linear">Metro Linear</option>
-                                </select>
-
-                            </div>
 
 
                             <div class="modal-footer">

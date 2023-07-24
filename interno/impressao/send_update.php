@@ -12,7 +12,7 @@ $codigo = $data['codigo'];
 $quantidade = $data['quantidade'];
 $descricao = $data['descricao_prod'];
 $valor_unidade = $data['valor_unidade'];
-$un_medida = $data['un_medida'];
+$un_medida = 'UNIDADE';
 $id = $data['id'];
 
 

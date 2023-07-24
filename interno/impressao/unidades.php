@@ -261,16 +261,7 @@ $ano = date ("Y");
                     })
                     .then(response => response.json())
                     .then(resp => {
-                        console.log(resp.data)
-                        const newUnitys = resp.data.map(
-                            unity => {
-                                return {
-                                    ...unity,
-                                    isEdit: false,
-                                }
-                            }
-                        )
-                        this.unitys = newUnitys;
+                        window.location.reload();
                     })
                     .catch(error => {
                         // Tratamento de erro
