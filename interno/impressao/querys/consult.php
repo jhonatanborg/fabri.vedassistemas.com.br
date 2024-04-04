@@ -49,8 +49,7 @@ WHERE i.status IN (0, 1, 2, 3, 4, 5, 8)
   // Fechar a conexão com o banco de dados
   mysqli_close($conn);
 
-  // Retornar os resultados da consulta
-  return $rows;
+  return $rows; 
 }
 function getUnidade() {
 include("../conexao_bd.php");

@@ -107,30 +107,10 @@ if ($unidade !== "all") {
 }
 
 
-$result_impres = "SELECT
-  impressao.id_unidade,
-  impressao.id,
-  SUM(impressao.quantidade) AS totquantidade,
-  produtos.valor_unidade AS valortotal,
-  SUM(impressao.quantidade * produtos.valor_unidade) AS valortotal,
-  impressao.id_produto,
-  produtos.descricao_prod,
-  produtos.valor_unidade,
-  produtos.codigo,
-  impressao.id_professor,
-  usuarios.nome AS nome_professor,
-  (SELECT name FROM unidades WHERE id = impressao.id_unidade) AS unidade_nome
-FROM impressao
-JOIN produtos ON impressao.id_produto = produtos.id
-JOIN usuarios ON impressao.id_professor = usuarios.id
-WHERE EXTRACT(MONTH FROM impressao.data) = '$mes'
-  AND EXTRACT(YEAR FROM impressao.data) = '$ano'
-  $unidadeCondition
-  $statusCondition
-    $usuarioCondition
-GROUP BY impressao.id_unidade, impressao.id_produto, produtos.descricao_prod, produtos.valor_unidade, produtos.codigo, impressao.id_professor, usuarios.nome
-ORDER BY impressao.id_unidade
-LIMIT 0, 100
+$result_impres = "SELECT i.id, i.descricao, i.quantidade, i.status, i.id_produto, i.data_inicio, p.descricao_prod, p.codigo, p.valor_unidade, i.data, i.id_professor, u.nome AS Solicitante, u2.nome AS Executor FROM impressao i LEFT JOIN produtos p ON p.id = i.id_produto LEFT JOIN usuarios u ON i.id_professor = u.id LEFT JOIN usuarios u2 ON i.status = u2.id WHERE MONTH(i.data_inicio) = $mes AND YEAR(i.data_inicio) = $ano 
+  AND i.status = '$status'
+  $unidadeCondition 
+  $usuarioCondition
 ";
 
 $resultado_impres = mysqli_query($conn, $result_impres);
@@ -275,9 +255,7 @@ $total = 0;
 
 
                     <th>#ID</th>
-                    <th>Unidade</th>
                     <th>Solicitante</th>
-
 
                     <th>Código</th>
 
@@ -299,7 +277,7 @@ $total = 0;
 
 
                 <?php while($rows_impres = mysqli_fetch_assoc($resultado_impres)){
-   $total_price += $rows_impres['valortotal'];
+   $total_price += $rows_impres['quantidade'] * $rows_impres['valor_unidade'];
   
 	?>
 
@@ -307,18 +285,17 @@ $total = 0;
 
 
                     <td><?php echo $rows_impres['id']; ?></td>
-                    <td><?php echo $rows_impres['unidade_nome']; ?></td>
-                    <td><?php echo $rows_impres['nome_professor']; ?></td>
+                    <td><?php echo $rows_impres['Solicitante']; ?></td>
 
                     <td><?php echo $rows_impres['codigo']; ?></td>
 
                     <td><?php echo $rows_impres['descricao_prod']; ?></td>
 
-                    <td><?php echo $rows_impres['totquantidade']; ?></td>
+                    <td><?php echo $rows_impres['quantidade']; ?></td>
 
                     <td>R$<?php echo $rows_impres['valor_unidade']; ?></td>
 
-                    <td> R$<?php echo $rows_impres['valortotal']; ?></td>
+                    <td> R$<?php echo $rows_impres['quantidade'] * $rows_impres['valor_unidade']  ?></td>
 
 
 

@@ -166,7 +166,7 @@ if (isset($_POST['filtrar'])) {
                 <div class="row align-items-center">
                     <div class="col-sm-1">
                         <h2>Serviços</b></h2>
-
+                        <h4 v-text="listimpress.length"></h4>
                     </div>
                     <form class="col-sm-3 row" method="POST" action="">
                         <div class="form-group col-sm-6">
